@@ -1,9 +1,10 @@
 import './App.css';
+import Auth from './components/auth/auth';
 
 function App() {
   return (
     <div className="App">
-      
+      <Auth />
     </div>
   );
 }
