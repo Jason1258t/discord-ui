@@ -43,7 +43,7 @@ h2{
 }
 
 .text {
-    font-size: 18px;
+    font-size: 12px;
     color:#72767D;
     margin: 0px 0px 15px 0px;
 }
@@ -72,22 +72,12 @@ h2{
     margin-bottom: 0px;
 }
 
-.email, .password{
-    justify-items: left;
-    min-width: 100%;
-}
-
-.about{
-    color: var(--text-color);
-    font-size: 10px
-}
 
 .link{
     width: 100%;
     text-align: left;
     margin-top: 0px ;
-    color: aqua;
-    font-size: 14px;
+    color: #1190D1;
 }
 
 .link:hover{

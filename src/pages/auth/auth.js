@@ -2,8 +2,8 @@ import './styles.css'
 import {useState} from 'react'
 import discord_logo from '../../images/discord_logo.png'
 import testqr from '../../images/testqr.png'
-import TextField from '../text/textfield'
-import Button from '../buttons/button'
+import TextField from '../../components/text/textfield'
+import Button from '../../components/buttons/button'
 
 const Auth = () => {
     const [email, setEmail] = useState('')
@@ -20,12 +20,11 @@ const Auth = () => {
                 <div className="login">
                     <h2>Добро пожаловать!</h2>
                     <p className="text">Мы так рады вас видеть снова!</p>
-                    <TextField about='Адрес Электронной почты или номер телефона' type="email" value={email} onChange={(event) => {setEmail(event.target.value)}}/>
+                    <TextField about='Email или номер телефона' type="email" value={email} onChange={(event) => {setEmail(event.target.value)}}/>
                     <TextField about='Пароль' type={"password"} value={password} onChange={(event) => {setPassword(event.target.value)}}/>
                     <Button text='Вход' />
                     <div style={{display: 'flex', flexDirection: 'row', textAlign: 'left', width: '100%'}}>
-                        <p className="text">Нужна учетная запись? <p className="link"> Зарегестрироваться </p></p>
-                        
+                        <p className="text">Нужна учетная запись? <span className="link"> Зарегестрироваться </span></p>
                     </div>
                 </div>
                 <div className="qr">
