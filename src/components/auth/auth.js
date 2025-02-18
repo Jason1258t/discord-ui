@@ -2,7 +2,7 @@ import './styles.css'
 import {useState} from 'react'
 import discord_logo from '../../images/discord_logo.png'
 import testqr from '../../images/testqr.png'
-import TextField from './textfield'
+import TextField from '../text/textfield'
 
 const Auth = () => {
     const [email, setEmail] = useState('')

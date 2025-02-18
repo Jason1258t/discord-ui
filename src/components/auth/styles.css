@@ -82,21 +82,6 @@ h2{
     font-size: 10px
 }
 
-.base-textfield{
-    width: 100%;
-    max-width: 500px;
-    height: 20px;
-    padding: 5px;
-    background-color: var(--toolstips-and-userptofile);
-    border: 0px;
-    border-radius: 5px;
-    color: white;
-}
-
-.base-textfield:focus{
-    outline: none;
-    border: none;
-}
 
 input[type='button']{
     width: 100%;
