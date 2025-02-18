@@ -1,6 +1,5 @@
 .base-textfield {
     width: 100%;
-    max-width: 500px;
     height: 20px;
     padding: 5px;
     background-color: var(--toolstips-and-userptofile);
