@@ -1,5 +1,4 @@
-
-.base-textfield{
+.base-textfield {
     width: 100%;
     max-width: 500px;
     height: 20px;
@@ -10,12 +9,11 @@
     color: white;
 }
 
-.base-textfield:focus{
+.base-textfield:focus {
     outline: none;
-    border: none;
 }
 
-.about{
+.about {
     color: var(--text-color);
     text-align: left;
     font-size: 14px;

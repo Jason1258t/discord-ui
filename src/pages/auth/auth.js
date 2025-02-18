@@ -19,14 +19,14 @@ const Auth = () => {
             <div className="forms">
                 <div className="login">
                     <h2>Добро пожаловать!</h2>
-                    <p className="text">Мы так рады вас видеть снова!</p>
-                    <TextField about='Email или номер телефона' type="email" value={email} onChange={(event) => {setEmail(event.target.value)}}/>
-                    <TextField about='Пароль' type={"password"} value={password} onChange={(event) => {setPassword(event.target.value)}}/>
-                    <Button text='Вход' />
+                    <TextField about='Email или номер телефона' type="email" value={email} onChange={(event) => {setEmail(event.target.value)}} placeholder="Email"/>
+                    <TextField about='Пароль' type={"password"} value={password} onChange={(event) => {setPassword(event.target.value)}} placeholder="Your password"/>
+                    <Button text='Вход' onClick={() => console.log('Clicked')}/>
                     <div style={{display: 'flex', flexDirection: 'row', textAlign: 'left', width: '100%'}}>
                         <p className="text">Нужна учетная запись? <span className="link"> Зарегестрироваться </span></p>
                     </div>
                 </div>
+
                 <div className="qr">
                     <img src={testqr} alt="qr" />
                     <h2>Или войдите с помощью QR кода</h2>

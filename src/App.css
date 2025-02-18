@@ -1,9 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
 :root{
-  --text-color: #C0BCBC;
+  --text-color: #DCDDDE;
   --bg-black: #292B2F;
   --bg-white: #292b2f;
+  --cta-link: #00AFF4;
+  --primary-chat-area: #36393F;
+  --toolstips-and-userptofile: #18191c;
+  --server-list-and-title-bar: #202225;
+  --sidebar-profile-info: #292B2F;
 }
 
 html, body, #root{
