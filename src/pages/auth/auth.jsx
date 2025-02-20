@@ -29,7 +29,7 @@ const Auth = () => {
 
                 <div className="qr">
                     <img src={testqr} alt="qr" />
-                    <h2>Или войдите с помощью QR кода</h2>
+                    <h2>Или войдите c помощью QR кода</h2>
                 </div>
             </div>
         </div>
