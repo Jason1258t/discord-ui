@@ -1,7 +1,7 @@
 interface Message {
     id: number;
     text: string;
-    author: number;
-    channel: number;
+    author: User;
+    channel: Channel;
     created_at: Date;
 }
