@@ -1,0 +1,37 @@
+.guild {
+    width: 60px;
+    height: 60px;
+    position: relative;
+    margin-bottom: 12px;
+}
+
+.guild img:hover {
+    border-radius: 35%;
+}
+
+.guild img {
+    border-radius: 50%;
+    transition: border-radius 100ms ease-in-out;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.guild:hover .tooltip {
+    display: block;
+}
+
+.tooltip {
+    position: absolute;
+    max-height: 80%;
+    max-width: 350%;
+    left: 110%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--toolstips-and-userptofile);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 10%;
+    font-size: 14px;
+    white-space: nowrap;
+}

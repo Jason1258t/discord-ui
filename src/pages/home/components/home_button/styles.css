@@ -1,0 +1,28 @@
+:root {
+    --btn-color: #5865f2;
+    --btn-clicked-color: #4752c4;
+}
+
+.home-button {
+    width: 60px;
+    height: 60px;
+    min-height: 60px;
+    display: flex;
+    background-color: #333;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    transition: border-radius 100ms ease-in-out;
+}
+
+.home-button:hover {
+    background-color: var(--btn-color);
+    border-radius: 35%;
+}
+
+.home-button img {
+    display: block;
+    object-fit: cover;
+    width: 80%;
+    height: 80%;
+}
