@@ -21,6 +21,16 @@ const HomePage = () => {
         },
     };
 
+    const testdm = {
+        user: {
+            display_name: 'Cool Cat',
+            avatar: "https://i.pinimg.com/736x/1f/97/c2/1f97c2b126afc0cc179294ca7e29f74c.jpg",
+        },
+        onClick: () => {
+            console.log('clicked')
+        }
+    }
+
     return (
         <div style={{ display: "flex" }}>
             <GuildsListSection
@@ -39,8 +49,17 @@ const HomePage = () => {
                     testGuild,
                     testGuild,
                 ]}
-            ></GuildsListSection>
-            <DmChannelsSection></DmChannelsSection>
+            />
+            <DmChannelsSection
+                dms={[
+                    testdm,
+                    testdm,
+                    testdm,
+                    testdm,
+                    testdm,
+                    testdm,
+                ]}
+            />
             <div
                 style={{
                     display: "flex",

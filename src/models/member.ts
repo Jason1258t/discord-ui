@@ -1,4 +1,4 @@
-import './user';
+import { User } from './user';
 
 export interface Member extends User {
     guildId: number;

@@ -13,6 +13,7 @@
     align-items: center;
     justify-content: center;
     transition: border-radius 100ms ease-in-out;
+    transition: background-color 100ms ease-in-out;
 }
 
 .home-button:hover {

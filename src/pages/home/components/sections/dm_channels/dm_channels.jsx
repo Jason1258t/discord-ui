@@ -1,8 +1,9 @@
 import React from "react";
 import TextField from "../../../../../components/text/textfield";
 import "./styles.css";
+import Dm from "../../dm/dm";
 
-const DmChannelsSection = () => {
+const DmChannelsSection = ({ dms }) => {
     return (
         <div className="dm-section">
             <div className="search">
@@ -11,6 +12,9 @@ const DmChannelsSection = () => {
                     placeholder="find or start a conversation"
                 ></TextField>
             </div>
+            {dms.map((data) => (
+                <Dm data={data} />
+            ))}
         </div>
     );
 };
