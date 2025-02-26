@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import './styles.css'
 import {useEffect, useState} from 'react'
 import discord_logo from '../../images/discord_logo.png'
@@ -5,12 +6,19 @@ import testqr from '../../images/testqr.png'
 import TextField from '../../components/text/textfield'
 import Button from '../../components/buttons/button'
 import API from '../../api/api';
+import { useNavigate } from 'react-router'
 import { useCookies } from 'react-cookie'
+import Login from './components/login'
+import Register from './components/register'
 
 const Auth = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [page, setPage] = useState('login')
+    const [username, setUsername] = useState('')
+    const [displayName, setDisplayName] = useState('')
     const [cookie, setCookie, removeCookie] = useCookies();
+    const navigate = useNavigate();
     const api = new API();
     api.add_endpoint('users')
 
@@ -25,7 +33,7 @@ const Auth = () => {
             }
         };
         t()
-    }, [])
+    }, [api, cookie])
 
     return (
         <div className="wrapper">
@@ -35,24 +43,27 @@ const Auth = () => {
             </div>
 
             <div className="forms">
-                <div className="login">
-                    <h2>Добро пожаловать!</h2>
-                    <TextField about='Email или номер телефона' type="email" value={email} onChange={(event) => {setEmail(event.target.value)}} placeholder="Email"/>
-                    <TextField about='Пароль' type={"password"} value={password} onChange={(event) => {setPassword(event.target.value)}} placeholder="Your password"/>
-                    <Button text='Вход' onClick={async () => {
-                        api.add_endpoint('login')
-                        api.add_get('username', email)
-                        api.add_get('password', password)
-                        let resp = await api.get()
-                        if(resp['status'] === 1){
-                            setCookie('token', resp['token'])
-                        }
-                        console.log(resp)
-                    }}/>
-                    <div style={{display: 'flex', flexDirection: 'row', textAlign: 'left', width: '100%'}}>
-                        <p className="text">Нужна учетная запись? <span className="link"> Зарегестрироваться </span></p>
-                    </div>
-                </div>
+                {page === 'login' ? <Login
+                    email={email}
+                    setEmail={setEmail}
+                    password={password}
+                    setPassword={setPassword}
+                    api={api}
+                    setCookie={setCookie}
+                    register={() => setPage('register')}
+                /> : page === 'register' ? <Register
+                        email={email}
+                        displayName={displayName}
+                        username={username}
+                        password={password}
+                        setEmail={setEmail}
+                        setDisplayName={setDisplayName}
+                        setUsername={setUsername}
+                        setPassword={setPassword}
+                        api={api}
+                        login={() => {setPage('login')}}
+                /> : ''
+                }
 
                 <div className="qr">
                     <img src={testqr} alt="qr" />
