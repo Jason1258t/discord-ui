@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
+import axios from 'axios'
 const conf = require('./api_config.js')
-const axios = require('axios');
 
 class API{
     constructor() {
@@ -10,11 +10,14 @@ class API{
         this.post_args = []
     }
 
-    get fullpath() {
+    getfullpath(method) {
         let res = this.host 
         this.endpoints.forEach(value => {
             res += value + '/'
         })
+        if(method === 'GET'){
+            res = res.slice(0, -1)
+        }
         if (this.get_args.length !== 0) {
             res += '?'
             this.get_args.forEach(value => {
@@ -24,55 +27,55 @@ class API{
         return res
     }
 
-    get post_args() {
+    get_post_args() {
         let res = new FormData()
         this.post_args.forEach(value => {
-            res.append(value[0], value[1])
+            res.push(value[0], value[1])
         })
         return res
     }
 
     add_get(name, value) {
-        this.get_args.append([name, value])
+        this.get_args.push([name, value])
     }
 
     add_post(name, value) {
-        this.post_args.append([name, value])
+        this.post_args.push([name, value])
     }
 
     add_endpoint(endpoint) {
-        this.endpoints.append(endpoint)
+        this.endpoints.push(endpoint)
     }
 
-    get() {
+    async get() {
         let config = {
             method: 'GET',
             maxBodyLength: Infinity,
-            url: this.fullpath,
+            url: this.getfullpath("GET"),
         }
         let resp;
-        axios.request(config)
+        await axios.get(config.url)
             .then((response) => {
-                resp = response 
+                resp = response.data
             }).catch((e) => {
                 resp = e
             })
         return resp
     }
 
-    post() {
-        let args = this.post_args
+    async post() {
+        let args = this.get_post_args
         let config = {
             method: 'POST',
             maxBodyLength: Infinity,
-            url: this.fullpath,
+            url: this.getfullpath("POST"),
             headers: {
                 ...args.getHeaders()
             },
             data: args
         }
         let resp;
-        axios.request(config)
+        axios.post(config)
             .then((response) => {
                 resp = response
             })
