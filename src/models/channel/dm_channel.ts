@@ -4,5 +4,4 @@ import { Message } from '../message'
 
 interface DMChannel extends Channel {
     user: User;
-    onClick: Function,
 }

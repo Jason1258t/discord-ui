@@ -23,13 +23,13 @@ const HomePage = () => {
 
     const testdm = {
         user: {
-            display_name: 'Cool Cat',
-            avatar: "https://i.pinimg.com/736x/1f/97/c2/1f97c2b126afc0cc179294ca7e29f74c.jpg",
+            display_name: "Satoru Gojo",
+            avatar: "https://i.pinimg.com/736x/f4/fd/36/f4fd3614a9ebfd84405302ee68cb296a.jpg",
         },
         onClick: () => {
-            console.log('clicked')
-        }
-    }
+            console.log("clicked");
+        },
+    };
 
     return (
         <div style={{ display: "flex" }}>
@@ -51,25 +51,30 @@ const HomePage = () => {
                 ]}
             />
             <DmChannelsSection
-                dms={[
-                    testdm,
-                    testdm,
-                    testdm,
-                    testdm,
-                    testdm,
-                    testdm,
-                ]}
+                dms={[testdm, testdm, testdm, testdm, testdm, testdm]}
             />
             <div
                 style={{
                     display: "flex",
                     flex: 1,
-                    height: "100%",
-                    justifyContent: "center",
-                    alignContent: "center",
+                    height: "100vh",
+                    backgroundColor: "#313338"
                 }}
             >
-                <SadWampus width={420} />
+                <div
+                    style={{
+                        margin: "auto",
+                        color: "#949BA4",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        fontSize: "15px",
+                        display: "flex",
+                        flexDirection: "column",
+                    }}
+                >
+                    <SadWampus width={420} style={{ marginBottom: "24px" }} />
+                    No one's around to play with Wumpus.
+                </div>
             </div>
         </div>
     );

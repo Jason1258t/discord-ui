@@ -1,7 +1,7 @@
 import React from "react";
 import HomeButton from "../../home_button/home_button";
 import GuildWidget from "../../guild/guild";
-import './styles.css';
+import "./styles.css";
 
 const GuildsListSection = ({ guilds }) => {
     return (
@@ -13,7 +13,7 @@ const GuildsListSection = ({ guilds }) => {
                     marginBottom: "8px",
                     width: "32px",
                     height: "2px",
-                    minHeight: '2px',
+                    minHeight: "2px",
                     borderRadius: "2px",
                     background: "#4E5058",
                     marginLeft: "auto" /* Центрируем по горизонтали */,
