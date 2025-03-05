@@ -1,0 +1,10 @@
+.dmuserwrapper {
+    max-height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.dmuserwrapper img {
+    height: 40px;
+}

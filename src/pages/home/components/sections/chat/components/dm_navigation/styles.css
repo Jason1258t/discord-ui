@@ -1,0 +1,31 @@
+:root {
+    --search-bg: #202225;
+    --search-text: #72767D;
+}
+
+.dmnavig {
+    height: 100%;
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.dmnavig img {
+    height: 20px;
+    width: auto;
+}
+
+.dmnavig.search {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    align-items: center;
+    height: 100%;
+}
+
+input[type='text'].search {
+    height: 70%;
+    background-color: var(--search-bg);
+}
