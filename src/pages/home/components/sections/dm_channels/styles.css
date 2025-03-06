@@ -24,3 +24,11 @@
     font-weight: 500;
     padding: 8px 18px 4px;
 }
+
+.empty-result {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 24px;
+    font-size: 14px;
+    color: #949BA4;
+}
