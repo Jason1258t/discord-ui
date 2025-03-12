@@ -1,0 +1,21 @@
+:root {
+    --message-input-bg: #383a40
+}
+
+.messagefield {
+    margin-top: 40px;
+    max-width: 100%;
+    min-width: 99%;
+    min-height: 60px;
+    outline: none;
+    border: 0;
+    border-radius: 15px;
+    padding-left: 20px;
+    font-size: 18px;
+    color: white;
+    background-color: var(--message-input-bg);
+}
+
+.messageform {
+    width: 100%;
+}

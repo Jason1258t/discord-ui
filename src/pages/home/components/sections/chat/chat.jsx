@@ -1,29 +1,23 @@
 import './styles.css'
-import { useEffect, useState, useCallback } from 'react';
-import DmUser from './components/dm_user/DmUser';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import MessageField from './components/message_field/MessageField';
 import { TestModels } from '../../../../../models/models'
 import MessagesList from './components/message_field/components/messages_list/MessagesList';
-const models = new TestModels()
+import DmUserShortInfo from './components/dm_user/short_info/DmUser'
+import DmUserFullInfo from './components/dm_user/full_info/dn_user_full'
 
 const Chat = ({ data }) => {
     const [messages, setMessages] = useState([])
 
-    const addMessage = async (msg) => {
-        let t = messages
-        t.push(msg)
-        setMessages(t)
-    }
-
-    useEffect(() => {
-        const t = async () => { 
-            for (let i = 1; i < 10; i++){
-                await addMessage(models.message)
-            }
+    const addMessage = (msg) => {
+        if (msg['text'].trim()) {
+          setMessages(prev => [...prev, msg]);
         }
-        t()
-        console.log(messages)
-    }, [])
+      };
+
+    // useEffect(() => {
+        
+    // }, [])   
 
     return (
         <div className="chat">
