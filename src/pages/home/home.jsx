@@ -1,12 +1,13 @@
 import { ReactComponent as SadWampus } from "../../images/sad_wumpus.svg";
 import GuildsListSection from "./components/sections/guilds_list/guilds_list";
 import DmChannelsSection from "./components/sections/dm_channels/dm_channels";
-import DmUser from "./components/sections/chat/components/dm_user/DmUser";
 import Chat from "./components/sections/chat/chat";
 import { TestModels } from "../../models/models";
+import { useState } from "react";
+const models = new TestModels()
 
 const HomePage = () => {
-    const models = new TestModels()
+    const [currentChatId, setCurrentChatId] = useState(-1)
     const testGuild = models.guild
     const testdm = models.dm
 
@@ -31,6 +32,7 @@ const HomePage = () => {
             />
             <DmChannelsSection
                 dms={[testdm, testdm, testdm, testdm, testdm, testdm]}
+                onClick={setCurrentChatId}
             />
             <div style={{
                     display: "flex",
@@ -38,7 +40,12 @@ const HomePage = () => {
                     height: "100vh",
                     backgroundColor: "#313338"
             }}>
-                <Chat data={testdm}/>
+                {
+                    currentChatId !== -1 ? 
+                    <Chat data={testdm} /> :
+                        
+                    <SadWampus width={420} style={{ marginBottom: "24px" }} />
+                }
                 <div style={{
                         margin: "auto",
                         color: "#949BA4",
@@ -48,8 +55,6 @@ const HomePage = () => {
                         display: "flex",
                         flexDirection: "column",
                 }}>
-                    {/* <SadWampus width={420} style={{ marginBottom: "24px" }} /> */}
-                    {/* No one's around to play with Wumpus. */}
                 </div>
             </div>
         </div>

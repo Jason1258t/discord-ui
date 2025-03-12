@@ -23,13 +23,16 @@ class TestModels {
         }
 
         this._dm = {
-            user: {
-                display_name: "Satoru Gojo",
-                avatar: "https://i.pinimg.com/736x/f4/fd/36/f4fd3614a9ebfd84405302ee68cb296a.jpg",
-            },
-            onClick: () => {
-                console.log("clicked");
-            },
+            id: 1,
+            user: this.user,
+        }
+
+        this._message = {
+            id: 1,
+            text: 'Hello yo',
+            author: this.user,
+            channel: this.dm,
+            created_at: Date(2000, 12, 12)
         }
     }
 
@@ -43,6 +46,10 @@ class TestModels {
 
     get dm() {
         return this._dm
+    }
+
+    get message() {
+        return this._message
     }
 }
 

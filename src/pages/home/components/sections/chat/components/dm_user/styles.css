@@ -1,10 +1,22 @@
 .dmuserwrapper {
-    max-height: 40px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    height: 100%;
 }
 
 .dmuserwrapper img {
-    height: 40px;
+    height: 100%;
+}
+
+.username {
+    color: white;
+    text-align: left;
+    font-size: 18px;
+    margin-top: 10px;
+    width: 55%;
+}
+
+.userlogo {
+    border-radius: 50%;
 }

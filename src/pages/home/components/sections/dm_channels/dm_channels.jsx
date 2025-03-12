@@ -4,7 +4,7 @@ import "./styles.css";
 import Dm from "../../dm/dm";
 import { ReactComponent as PlusSvg } from "../../../../../images/plus.svg";
 
-const DmChannelsSection = ({ dms }) => {
+const DmChannelsSection = ({ dms, onClick }) => {
     const [foundDms, setFoundDms] = useState(dms);
     const [useFound, setUseFound] = useState(false);
 
@@ -35,7 +35,7 @@ const DmChannelsSection = ({ dms }) => {
             )}
 
             {foundDms.length !== 0 ? (
-                foundDms.map((data) => <Dm data={data} />)
+                foundDms.map((data) => <Dm data={data} onClick={onClick} />)
             ) : (
                 <div className="empty-result">Nothing found</div>
             )}

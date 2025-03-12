@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import './styles.css'
 import addmember from './src/addmember.png'
 import info from './src/info.png'
@@ -15,7 +16,7 @@ const DmNavigation = ({}) => {
             <img src={voicecall} />
             <img src={videocall} />
             <img src={pin} />
-            <img src={addmember} />
+            <img src={addmember} /> 
             <img src={members} />
             <div className="search">
                 <TextField

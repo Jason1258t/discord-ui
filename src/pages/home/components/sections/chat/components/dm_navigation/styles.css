@@ -12,9 +12,20 @@
     justify-content: space-around;
 }
 
+.search {
+    border: 0;
+}
+
 .dmnavig img {
-    height: 20px;
-    width: auto;
+    max-width: 25px;
+    max-height: 25px;
+    opacity: 0.5;
+    transition: opacity 200ms linear;
+}
+
+.dmnavig img:hover {
+    opacity: 1;
+    cursor: pointer;
 }
 
 .dmnavig.search {
