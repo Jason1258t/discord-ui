@@ -3,35 +3,12 @@ import GuildsListSection from "./components/sections/guilds_list/guilds_list";
 import DmChannelsSection from "./components/sections/dm_channels/dm_channels";
 import DmUser from "./components/sections/chat/components/dm_user/DmUser";
 import Chat from "./components/sections/chat/chat";
+import { TestModels } from "../../models/models";
 
 const HomePage = () => {
-    const testGuild = {
-        id: 1,
-        name: "Best Guild Ever",
-        icon: "https://i.pinimg.com/736x/1f/97/c2/1f97c2b126afc0cc179294ca7e29f74c.jpg",
-        description: "",
-        created_at: Date(2000, 12, 12),
-        owner: {
-            guildId: 1,
-            nickname: "Satoru Gojo",
-            joined_at: Date(2000, 12, 12),
-            id: 1,
-            username: "chansyao",
-            display_name: "Satoru Gojo",
-            avatar: "https://i.pinimg.com/736x/f4/fd/36/f4fd3614a9ebfd84405302ee68cb296a.jpg",
-            created_at: Date(2000, 12, 12),
-        },
-    };
-
-    const testdm = {
-        user: {
-            display_name: "Satoru Gojo",
-            avatar: "https://i.pinimg.com/736x/f4/fd/36/f4fd3614a9ebfd84405302ee68cb296a.jpg",
-        },
-        onClick: () => {
-            console.log("clicked");
-        },
-    };
+    const models = new TestModels()
+    const testGuild = models.guild
+    const testdm = models.testdm
 
     return (
         <div style={{ display: "flex" }}>
