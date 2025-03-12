@@ -8,7 +8,7 @@ import { TestModels } from "../../models/models";
 const HomePage = () => {
     const models = new TestModels()
     const testGuild = models.guild
-    const testdm = models.testdm
+    const testdm = models.dm
 
     return (
         <div style={{ display: "flex" }}>
