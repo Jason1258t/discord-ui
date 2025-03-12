@@ -69,9 +69,7 @@ class API{
             method: 'POST',
             maxBodyLength: Infinity,
             url: this.getfullpath("POST"),
-            headers: {
-                ...args.getHeaders()
-            },
+            
             data: args
         }
         let resp;
