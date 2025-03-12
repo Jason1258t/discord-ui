@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import './styles.css'
 import {useEffect, useState} from 'react'
@@ -25,15 +26,21 @@ const Auth = () => {
     useEffect(() => {
         api.add_endpoint('getdata')
         let t = async () => {
-            api.add_get('token', cookie['token'])
-            console.log('fullpath:', api.getfullpath("GET"))
-            let resp = await api.get()
-            if(resp['status'] === 1){
-                console.log(resp)
+            let resp;
+            if (cookie['token'] != null) {
+                api.add_get('token', cookie['token'])
+                console.log('fullpath:', api.getfullpath("GET"))
+                resp = await api.get()
+                if(resp['status'] === 1){
+                    console.log(resp)
+                }
+            }
+            else {
+                console.log('Token not found')
             }
         };
         t()
-    }, [api, cookie])
+    }, [])
 
     return (
         <div className="wrapper">
@@ -43,25 +50,16 @@ const Auth = () => {
             </div>
 
             <div className="forms">
-                {page === 'login' ? <Login
-                    email={email}
-                    setEmail={setEmail}
-                    password={password}
-                    setPassword={setPassword}
-                    api={api}
-                    setCookie={setCookie}
-                    register={() => setPage('register')}
-                /> : page === 'register' ? <Register
-                        email={email}
-                        displayName={displayName}
-                        username={username}
-                        password={password}
-                        setEmail={setEmail}
-                        setDisplayName={setDisplayName}
-                        setUsername={setUsername}
-                        setPassword={setPassword}
-                        api={api}
-                        login={() => {setPage('login')}}
+                {page === 'login' ?
+                <Login
+                    api={new API()}
+                        register={() => setPage('register')}
+                        setCookie={setCookie}
+                /> : page === 'register' ?
+                <Register
+                    api={new API()}
+                        login={() => { setPage('login') }}
+                        setCookie={setCookie}
                 /> : ''
                 }
 
