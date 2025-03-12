@@ -28,12 +28,16 @@ const Chat = ({ data }) => {
     return (
         <div className="chat">
             <div className="info">
-                <DmUser data={data} />
+                <DmUserShortInfo data={data} />
+            </div>
+            <div style={{ display: "flex", height: "100%" }}>
+                <div style={{width: "100%"}}></div>
+                <DmUserFullInfo />
             </div>
             <MessagesList data={messages} />
             <MessageField addMessage={addMessage} />
         </div>
-    )
-}
+    );
+};
 
 export default Chat;

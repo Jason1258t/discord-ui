@@ -21,7 +21,7 @@ const GuildsListSection = ({ guilds }) => {
                 }}
             ></div>
             {guilds.map((data) => (
-                <GuildWidget data={data}></GuildWidget>
+                <GuildWidget data={data} key={data.id}></GuildWidget>
             ))}
         </div>
     );

@@ -34,7 +34,8 @@ const HomePage = () => {
                 dms={[testdm, testdm, testdm, testdm, testdm, testdm]}
                 onClick={setCurrentChatId}
             />
-            <div style={{
+            <div
+                style={{
                     display: "flex",
                     flex: 1,
                     height: "100vh",
