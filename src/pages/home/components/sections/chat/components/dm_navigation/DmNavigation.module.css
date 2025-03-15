@@ -3,37 +3,32 @@
     --search-text: #72767D;
 }
 
-.dmnavig {
-    height: 100%;
-    width: 40%;
+.wrapper {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    padding-right: 8px;
 }
 
 .search {
     border: 0;
 }
 
-.dmnavig img {
-    max-width: 25px;
-    max-height: 25px;
-    opacity: 0.5;
-    transition: opacity 200ms linear;
+.wrapper img {
+    width: 24px;
+    height: 24px;
+    margin-right: 16px;
+    filter: brightness(0) invert(72%) sepia(6%) saturate(828%) hue-rotate(182deg);
 }
 
-.dmnavig img:hover {
-    opacity: 1;
+.wrapper img:hover {
     cursor: pointer;
 }
 
-.dmnavig.search {
+.wrapper.search {
     display: flex;
     flex-direction: row;
-    position: relative;
     align-items: center;
-    height: 100%;
 }
 
 input[type='text'].search {

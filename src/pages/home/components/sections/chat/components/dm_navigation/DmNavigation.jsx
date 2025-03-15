@@ -1,32 +1,25 @@
-/* eslint-disable jsx-a11y/alt-text */
-import './styles.css'
-import addmember from './src/addmember.png'
-import info from './src/info.png'
-import mail from './src/mail.png'
-import members from './src/members.png'
-import pin from './src/pin.png'
-import search from'./src/search.png'
-import videocall from './src/videocall.png'
-import voicecall from './src/voicecall.png'
+import styles from './DmNavigation.module.css'
 import TextField from '../../../../../../../components/text/textfield'
+
+import addMember from './src/user-plus.svg';
+import members from './src/users.svg';
+import voicecall from './src/phone.svg';
+import videocall from './src/video-camera.svg';
 
 const DmNavigation = ({}) => {
     return (
-        <div className="dmnavig">
+        <div className={styles.wrapper}>
             <img src={voicecall} />
             <img src={videocall} />
-            <img src={pin} />
-            <img src={addmember} /> 
+            <img src={addMember} /> 
             <img src={members} />
-            <div className="search">
+            <div className={styles.search}>
                 <TextField
                     type='text'
                     placeholder={'Поиск'}
                 />
                 {/* <img src={search} /> */}
             </div>
-            <img src={mail} />
-            <img src={info} />
         </div>
     )
 }

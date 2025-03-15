@@ -4,12 +4,12 @@ import DmChannelsSection from "./components/sections/dm_channels/dm_channels";
 import Chat from "./components/sections/chat/chat";
 import { TestModels } from "../../models/models";
 import { useState } from "react";
-const models = new TestModels()
+const models = new TestModels();
 
 const HomePage = () => {
-    const [currentChatId, setCurrentChatId] = useState(-1)
-    const testGuild = models.guild
-    const testdm = models.dm
+    const [currentChatId, setCurrentChatId] = useState(-1);
+    const testGuild = models.guild;
+    const testdm = models.dm;
 
     return (
         <div style={{ display: "flex" }}>
@@ -39,24 +39,31 @@ const HomePage = () => {
                     display: "flex",
                     flex: 1,
                     height: "100vh",
-                    backgroundColor: "#313338"
-            }}>
-                {
-                    currentChatId !== -1 ? 
-                    <Chat data={testdm} /> :
-                        
-                    <SadWampus width={420} style={{ marginBottom: "24px" }} />
-                }
-                <div style={{
-                        margin: "auto",
-                        color: "#949BA4",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        fontSize: "15px",
-                        display: "flex",
-                        flexDirection: "column",
-                }}>
-                </div>
+                    backgroundColor: "#313338",
+                }}
+            >
+                {currentChatId !== -1 ? (
+                    <Chat data={testdm} />
+                ) : (
+                    <div
+                        style={{
+                            margin: "auto",
+                            color: "#949BA4",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            fontSize: "15px",
+                            display: "flex",
+                            flexDirection: "column",
+                            textAlign: "center"
+                        }}
+                    >
+                        <SadWampus
+                            width={420}
+                            style={{ marginBottom: "24px" }}
+                        />
+                        Сообщаем вам что вы сын бляди, и с вами <br/> никто не хочет общаться
+                    </div>
+                )}
             </div>
         </div>
     );
