@@ -12,14 +12,9 @@
 }
 
 html, body, #root{
-  height: 100%;
   background-color: var(--server-list-and-title-bar);
   font-family: 'Montserrat';
   padding: 0;
+  margin: 0;
   overflow: hidden;
-}
-
-.app {
-  display: flex; /* Flexbox для размещения панели и контента */
-  height: 100vh; /* Полная высота экрана */
 }

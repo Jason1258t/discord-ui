@@ -1,7 +1,0 @@
-.wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-    overflow-y: auto;
-    flex-grow: 1;
-}

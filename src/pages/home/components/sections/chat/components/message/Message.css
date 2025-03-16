@@ -8,21 +8,26 @@
     flex-direction: row;
     background-color: var(--msg-bg-none);
     transition: background-color 200ms linear;
-    margin: 8px 0px;
-    align-items: center;
+    padding: 8px 2px;
+    align-items: start;
 }
 
-.userlogo {
+.avatar {
     height: 50px;
     border-radius: 50%;
     margin: 0 10px;
 }
 
 .text {
-    font-family: 'Montserrat';
     font-size: 14px;
     word-break: normal;
-    max-width: 100%;
+    flex-grow: 1;
+}
+
+.username {
+    font-size: 12px;
+    color: #828282;
+    margin: 0;
 }
 
 .msgwrapper:hover {
