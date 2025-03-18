@@ -2,7 +2,6 @@
 import "./Message.css";
 
 const Message = ({ data }) => {
-    console.log(data);
     return (
         <div className="msgwrapper">
             <img src={data.author.avatar} className="avatar" />

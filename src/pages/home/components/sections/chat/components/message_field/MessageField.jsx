@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from './MessageField.module.css';
 import { TestModels } from "../../../../../../../models/models";
-const models = new TestModels();
 
 const MessageField = ({ addMessage }) => {
     const [message, setMessage] = useState("");
+    const [id, setId] = useState(0)
+    const [models, setModels] = useState(new TestModels())
+
+    useEffect(() => {
+        setModels(new TestModels())
+    }, [models])
 
     return (
         <form
@@ -12,12 +17,13 @@ const MessageField = ({ addMessage }) => {
                 event.preventDefault();
                 let t = models.message;
                 t["text"] = message;
-                t['id'] = Math.random().toString(36).substring(2, 9);
+                t['id'] = id
+                setId(id + 1)
                 if (message.trim()) {
                     addMessage(t);
                     setMessage("");
                 }
-                console.log(t);
+                // console.log(t);
             }}
         >
             <input
