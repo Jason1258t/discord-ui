@@ -1,7 +1,7 @@
 .msgList {
     display: flex;
     flex-direction: column-reverse;
-    overflow: scroll;
+    overflow-y: scroll;
     padding: 0 8px;
     flex-grow: 1;
 }

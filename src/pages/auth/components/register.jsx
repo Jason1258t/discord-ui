@@ -2,26 +2,16 @@
 /* eslint-disable no-unused-vars */
 import TextField from "../../../components/text/textfield";
 import Button from "../../../components/buttons/button";
-import { useSelector, useDispatch } from 'react-redux';
-import { 
-  setEmail, 
-  setPassword, 
-  setDisplayName, 
-  setUsername, 
-} from '../../../redux/authSlice';
 import { useNavigate } from "react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 
 const Register = ({ api, login, setCookie }) => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const { 
-        email, 
-        password, 
-        displayName, 
-        username 
-    } = useSelector((state) => state.auth);
+    const [email, setEmail] = useState('')
+    const [displayName, setDisplayName] = useState('')
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
 
     useEffect(() => {
             api.add_endpoint('users')
@@ -36,28 +26,28 @@ const Register = ({ api, login, setCookie }) => {
                 value={email}
                 about={'Адрес электронной почты'}
                 placeholder='Email'
-                onChange={(event) => {dispatch(setEmail(event.target.text))}}
+                onChange={(event) => {setEmail(event.target.text)}}
             />
             <TextField
                 type='displayName'
                 value={displayName}
                 about={'Отображаемое имя'}
                 placeholder='Display Name'
-                onChange={(event) => {dispatch(setDisplayName(event.target.text))}}
+                onChange={(event) => {setDisplayName(event.target.text)}}
             />
             <TextField
                 type='username'
                 value={username}
                 about={'Имя пользователя'}
                 placeholder='Username'
-                onChange={(event) => {dispatch(setUsername(event.target.text))}}
+                onChange={(event) => {setUsername(event.target.text)}}
             />
             <TextField
                 type='password'
                 value={password}
                 about={'Пароль'}
                 placeholder='Password'
-                onChange={(event) => {dispatch(setPassword(event.target.text))}}
+                onChange={(event) => {setPassword(event.target.text)}}
             />
             <Button
                 text='Продолжить'

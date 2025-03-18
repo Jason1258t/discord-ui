@@ -5,17 +5,13 @@ import { TestModels } from "../../../../../../../models/models";
 const MessageField = ({ addMessage }) => {
     const [message, setMessage] = useState("");
     const [id, setId] = useState(0)
-    const [models, setModels] = useState(new TestModels())
 
-    useEffect(() => {
-        setModels(new TestModels())
-    }, [models])
 
     return (
         <form
             onSubmit={(event) => {
                 event.preventDefault();
-                let t = models.message;
+                let t = new TestModels().message
                 t["text"] = message;
                 t['id'] = id
                 setId(id + 1)
