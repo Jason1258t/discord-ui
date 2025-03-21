@@ -7,6 +7,7 @@
     display: flex;
     flex-direction: column;
     padding: 0px 10px 5px 10px;
+    flex-shrink: 0;
 }
 
 .search {
@@ -26,9 +27,7 @@
 }
 
 .empty-result {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 24px;
+    margin: 24px auto 0;
     font-size: 14px;
     color: #949BA4;
 }
