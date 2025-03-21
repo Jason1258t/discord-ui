@@ -5,7 +5,7 @@ const Message = ({ data }) => {
     return (
         <div className="msgwrapper">
             <img src={data.author.avatar} className="avatar" />
-            <div>
+            <div style={{margin: "4px 0"}}>
                 <p className="username">{data.author.display_name}</p>
                 <p className="text">{data.text}</p>
             </div>

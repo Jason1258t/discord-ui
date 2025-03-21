@@ -3,7 +3,7 @@
     justify-content: start;
     height: 100vh;
     overflow: hidden;
-    min-width: 15%;
+    width: 200px;
     display: flex;
     flex-direction: column;
     padding: 0px 10px 5px 10px;

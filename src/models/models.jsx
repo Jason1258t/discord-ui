@@ -24,7 +24,7 @@ class TestModels {
 
         this._message = {
             id: 1,
-            text: "Hello yo",
+            text: "Hello yo yo yo yoy yo y e e e o",
             author: this.user,
             channel: this.dm,
             created_at: Date(2000, 12, 12),
