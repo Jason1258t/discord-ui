@@ -12,8 +12,8 @@ const Dm = ({ data, onClick, isSelected = false }) => {
         >
             <img src={data.user.avatar} alt="" />
             <div className="content-wrapper">
-                <p className="name">{data.user.display_name}</p>
-                <p className="last-message">
+                <p className="p name">{data.user.display_name}</p>
+                <p className="p last-message">
                     {data.message ? data.message.text : "Начните общение"}
                 </p>
             </div>

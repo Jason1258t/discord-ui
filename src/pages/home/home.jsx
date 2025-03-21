@@ -1,6 +1,6 @@
 import GuildsListSection from "./components/sections/guilds_list/GuildList";
 import DmChannelsSection from "./components/sections/dm_channels/dm_channels";
-import Chat from  "./components/sections/chat/chat";
+import Chat from "./components/sections/chat/chat";
 import { TestModels } from "../../models/models";
 import { useState } from "react";
 import Wampus from "./components/wampus/wampus";
@@ -29,21 +29,21 @@ const HomePage = () => {
     console.log(testdm);
 
     return (
-        <div style={{ display: "flex"}}>
+        <div style={{ display: "flex", width: "100vw", height: "100vh" }}>
             <GuildsListSection guilds={testGuilds} />
             <DmChannelsSection
                 dms={[testdm, testdm, testdm, testdm, testdm, testdm]}
                 onClick={setCurrentChatId}
             />
-            <div
+            {/* <div
                 style={{
                     display: "flex",
                     flexGrow: 1,
                     backgroundColor: "#313338",
                 }}
-            >
+            > */}
                 {currentChatId !== -1 ? <Chat data={testdm} /> : <Wampus />}
-            </div>
+            {/* </div> */}
         </div>
     );
 };
