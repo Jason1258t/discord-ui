@@ -26,6 +26,8 @@ const HomePage = () => {
         testGuild,
     ];
 
+    console.log(testdm);
+
     return (
         <div style={{ display: "flex"}}>
             <GuildsListSection guilds={testGuilds} />

@@ -20,7 +20,6 @@ const Chat = ({ data }) => {
     return (
         <div className="chat">
             <DMHeader data={data} />
-
             <MessagesList data={messages} />
             <MessageField addMessage={addMessage} />
         </div>

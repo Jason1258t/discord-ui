@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import TextField from "../../../../../components/text/textfield";
 import "./styles.css";
-import Dm from "../../dm/dm";
+import Dm from "./dm/dm";
 import { ReactComponent as PlusSvg } from "../../../../../images/plus.svg";
 
 const DmChannelsSection = ({ dms, onClick }) => {
