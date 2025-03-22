@@ -12,8 +12,10 @@ const MessageField = ({ addMessage }) => {
             onSubmit={(event) => {
                 event.preventDefault();
                 let t = new TestModels().message
-                t["text"] = message;
-                t['id'] = id
+                t.text = message;
+                t.id = id;
+                t.created_at = new Date();
+                
                 setId(id + 1)
                 if (message.trim()) {
                     addMessage(t);

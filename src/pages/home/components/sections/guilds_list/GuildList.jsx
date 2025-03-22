@@ -3,9 +3,9 @@ import HomeButton from "../../home_button/home_button";
 import GuildWidget from "../../guild/guild";
 import "./GuildList.css";
 
-const GuildsListSection = ({ guilds }) => {
+const GuildsListSection = ({ guilds, goHome = null }) => {
     return (
-        <div className="guilds-section">
+        <div className="guilds-section" onClick={goHome}>
             <HomeButton></HomeButton>
             <div className="splitter"></div>
             <div className="list">

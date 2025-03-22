@@ -1,16 +1,16 @@
 import { React, useState } from "react";
 import TextField from "../../../../../components/text/textfield";
-import "./styles.css";
+import styles from "./DmChannelsSection.module.css";
 import Dm from "./dm/dm";
 import { ReactComponent as PlusSvg } from "../../../../../images/plus.svg";
 
-const DmChannelsSection = ({ dms, onClick }) => {
+const DmChannelsSection = ({ dms, onClick, currentChat }) => {
     const [foundDms, setFoundDms] = useState(dms);
     const [useFound, setUseFound] = useState(false);
 
     return (
-        <div className="dm-section">
-            <div className="search">
+        <div className={styles.dmSection}>
+            <div className={styles.search}>
                 <TextField
                     type="text"
                     placeholder="find or start a conversation"
@@ -28,16 +28,22 @@ const DmChannelsSection = ({ dms, onClick }) => {
                 ></TextField>
             </div>
             {!useFound && (
-                <div className="title">
+                <div className={styles.title}>
                     DIRECT MESSAGES
                     <PlusSvg />
                 </div>
             )}
 
             {foundDms.length !== 0 ? (
-                foundDms.map((data) => <Dm data={data} onClick={onClick} />)
+                foundDms.map((data) => (
+                    <Dm
+                        data={data}
+                        onClick={onClick}
+                        isSelected={currentChat === data.id}
+                    />
+                ))
             ) : (
-                <div className="empty-result">Nothing found</div>
+                <div className={styles.emptyResult}>Nothing found</div>
             )}
         </div>
     );
