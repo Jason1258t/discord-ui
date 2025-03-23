@@ -2,7 +2,6 @@ import React from "react";
 import Message from "./Message";
 import formatDate from "../../../../../../../utils/formatDate";
 
-
 const MessagesGroup = ({ group }) => {
     const messages = group.messages;
     console.log(group);
@@ -24,6 +23,13 @@ const MessagesGroup = ({ group }) => {
 export default MessagesGroup;
 
 const Title = ({ info }) => {
+    const lineStyle = {
+        height: 1,
+        background: "rgba(148, 155, 164, 0.4)",
+        flex: 1,
+        margin: "0 8px",
+    };
+
     return (
         <div
             style={{
@@ -34,23 +40,9 @@ const Title = ({ info }) => {
                 margin: "24px 0",
             }}
         >
-            <div
-                style={{
-                    height: 1,
-                    background: "rgba(148, 155, 164, 0.4)",
-                    flex: 1,
-                    margin: "0 8px",
-                }}
-            />
+            <div style={lineStyle} />
             {info}
-            <div
-                style={{
-                    height: 1,
-                    background: "rgba(148, 155, 164, 0.4)",
-                    flex: 1,
-                    margin: "0 8px",
-                }}
-            />
+            <div style={lineStyle} />
         </div>
     );
 };

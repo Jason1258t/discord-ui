@@ -1,21 +1,20 @@
 import styles from "./Message.module.css";
 import formatDateTime from "../../../../../../../utils/formatDateTime";
-import { useState } from "react";
+import useHover from "../../../../../../../hooks/useHover";
 
 const Message = ({ data, showInfo }) => {
-    const [isHover, setHover] = useState(false);
+    const [isHover, bind] = useHover();
+    const senderInfo = (
+        <div style={{ alignItems: "end", display: "flex" }}>
+            <span className={styles.username}>{data.author.display_name}</span>
+            <span className={styles.date}>
+                {formatDateTime(data.created_at)}
+            </span>
+        </div>
+    );
+
     return (
-        <div
-            className={styles.msgwrapper}
-            onMouseEnter={() => {
-                setHover(true);
-                console.log("hover");
-            }}
-            onMouseLeave={() => {
-                setHover(false);
-                console.log("not hover");
-            }}
-        >
+        <div className={styles.msgwrapper} {...bind}>
             {showInfo ? (
                 <img
                     src={data.author.avatar}
@@ -38,16 +37,7 @@ const Message = ({ data, showInfo }) => {
                 className={styles.contentWrapper}
                 style={showInfo ? {} : { minHeight: 0 }}
             >
-                {showInfo && (
-                    <div style={{ alignItems: "end", display: "flex" }}>
-                        <span className={styles.username}>
-                            {data.author.display_name}
-                        </span>
-                        <span className={styles.date}>
-                            {formatDateTime(data.created_at)}
-                        </span>
-                    </div>
-                )}
+                {showInfo && senderInfo}
                 <p className={styles.text}>{data.text}</p>
             </div>
         </div>
