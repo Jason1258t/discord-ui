@@ -31,7 +31,7 @@ const Title = ({ info }) => {
                 alignItems: "center",
                 color: "#949BA4",
                 fontSize: 12,
-                margin: "8px 0",
+                margin: "24px 0",
             }}
         >
             <div
