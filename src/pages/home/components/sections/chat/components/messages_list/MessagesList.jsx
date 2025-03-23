@@ -1,3 +1,4 @@
+import isSameDay from "../../../../../../../utils/sameDay";
 import MessagesGroup from "../message/MessagesGroup";
 import styles from "./MessageLIst.module.css";
 import helloImage from "./assets/hello.jpeg";
@@ -6,7 +7,7 @@ function groupMessages(messages) {
     if (messages.length === 0) return [];
 
     const groups = [];
-    let currentGroup = { messages: [messages[0]], id: 0 };
+    let currentGroup = { messages: [messages[0]], id: 0, showDate: true };
     let lastTimestamp = messages[0].created_at;
 
     for (let i = 1; i < messages.length; i++) {
@@ -15,9 +16,16 @@ function groupMessages(messages) {
             (currentMessage.created_at.getTime() - lastTimestamp.getTime()) /
             (1000 * 60); // Difference in minutes
 
-        if (timeDifference > 2) {
+        if (
+            timeDifference > 2 ||
+            !isSameDay(currentMessage.created_at, lastTimestamp)
+        ) {
             groups.push(currentGroup);
-            currentGroup = { messages: [currentMessage], id: groups.at(-1).id + 1 };
+            currentGroup = {
+                messages: [currentMessage],
+                id: groups.at(-1).id + 1,
+                showDate: !isSameDay(currentMessage.created_at, lastTimestamp),
+            };
         } else {
             currentGroup.messages.push(currentMessage);
         }
@@ -40,7 +48,7 @@ const MessagesList = ({ data }) => {
     return reversedCopy.length > 0 ? (
         <div className={styles.msgList}>
             {reversedGroups.map((g) => (
-                <MessagesGroup messages={g.messages} key={g.id}/>
+                <MessagesGroup group={g} key={g.id} />
             ))}
             {/* {reversedCopy.map((msg) => (
                 <Message data={msg} key={msg.id} />
@@ -48,7 +56,7 @@ const MessagesList = ({ data }) => {
         </div>
     ) : (
         <div className={styles.initialMessageHint}>
-            <img src={helloImage} alt="hello"/>
+            <img src={helloImage} alt="hello" />
             Здесь пока ничего нет
             <br />
             Начните ощение

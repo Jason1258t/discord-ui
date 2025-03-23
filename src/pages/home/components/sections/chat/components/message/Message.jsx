@@ -1,5 +1,5 @@
 import styles from "./Message.module.css";
-import formatDate from "../../../../../../../utils/formatDate";
+import formatDateTime from "../../../../../../../utils/formatDateTime";
 import { useState } from "react";
 
 const Message = ({ data, showInfo }) => {
@@ -30,7 +30,7 @@ const Message = ({ data, showInfo }) => {
                         margin: "0 10px",
                     }}
                 >
-                    {isHover && formatDate(data.created_at, true)}
+                    {isHover && formatDateTime(data.created_at, true)}
                 </div>
             )}
 
@@ -44,7 +44,7 @@ const Message = ({ data, showInfo }) => {
                             {data.author.display_name}
                         </span>
                         <span className={styles.date}>
-                            {formatDate(data.created_at)}
+                            {formatDateTime(data.created_at)}
                         </span>
                     </div>
                 )}
