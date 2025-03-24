@@ -48,9 +48,9 @@ const Message = ({ data, showInfo }) => {
             </div>
             {isHover && (
                 <div className={styles.fastActions}>
-                    <FastAction asset={pencil} hint="edit"/>
-                    <FastAction asset={arrowLeft} hint="reply"/>
-                    <FastAction asset={arrowRight} hint="forward"/>
+                    <FastAction asset={pencil} alt="edit" hint="Редактировать"/>
+                    <FastAction asset={arrowLeft} alt="reply" hint="Ответить"/>
+                    <FastAction asset={arrowRight} alt="forward" hint="Переслать"/>
                     <div
                         style={{
                             height: 20,
@@ -60,7 +60,7 @@ const Message = ({ data, showInfo }) => {
                             margin: "auto 4px"
                         }}
                     />
-                    <FastAction asset={more} hint="more"/>
+                    <FastAction asset={more} alt="more" hint="Развернуть"/>
                 </div>
             )}
         </div>
