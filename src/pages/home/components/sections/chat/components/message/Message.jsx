@@ -2,6 +2,12 @@ import styles from "./Message.module.css";
 import formatDateTime from "../../../../../../../utils/formatDateTime";
 import useHover from "../../../../../../../hooks/useHover";
 
+import pencil from "./src/pencil.svg";
+import arrowRight from "./src/arrow-uturn-right.svg";
+import arrowLeft from "./src/arrow-uturn-left.svg";
+import more from "./src/elipsis-horizontal.svg";
+import FastAction from "./FastAction";
+
 const Message = ({ data, showInfo }) => {
     const [isHover, bind] = useHover();
     const senderInfo = (
@@ -25,8 +31,8 @@ const Message = ({ data, showInfo }) => {
                 <div
                     className={styles.date}
                     style={{
-                        width: 40,
                         margin: "0 10px",
+                        flex: "0 0 40px",
                     }}
                 >
                     {isHover && formatDateTime(data.created_at, true)}
@@ -40,6 +46,23 @@ const Message = ({ data, showInfo }) => {
                 {showInfo && senderInfo}
                 <p className={styles.text}>{data.text}</p>
             </div>
+            {isHover && (
+                <div className={styles.fastActions}>
+                    <FastAction asset={pencil} hint="edit"/>
+                    <FastAction asset={arrowLeft} hint="reply"/>
+                    <FastAction asset={arrowRight} hint="forward"/>
+                    <div
+                        style={{
+                            height: 20,
+                            width: 1,
+                            background: "#949ba4",
+                            borderRadius: 1,
+                            margin: "auto 4px"
+                        }}
+                    />
+                    <FastAction asset={more} hint="more"/>
+                </div>
+            )}
         </div>
     );
 };

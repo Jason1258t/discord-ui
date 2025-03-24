@@ -18,7 +18,7 @@
     width: 24px;
     height: 24px;
     margin-right: 16px;
-    filter: brightness(0) invert(72%) sepia(6%) saturate(828%) hue-rotate(182deg);
+    filter: brightness(0) saturate(100%) invert(73%) sepia(5%) saturate(279%) hue-rotate(162deg) brightness(99%) contrast(97%);
 }
 
 .wrapper img:hover {

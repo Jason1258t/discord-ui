@@ -26,6 +26,7 @@ const Title = ({ info }) => {
     const lineStyle = {
         height: 1,
         background: "rgba(148, 155, 164, 0.4)",
+        borderRadius: 0.5,
         flex: 1,
         margin: "0 8px",
     };

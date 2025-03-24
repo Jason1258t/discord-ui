@@ -29,6 +29,7 @@ const MessageField = ({ addMessage }) => {
                 className={styles.messageField}
                 value={message}
                 placeholder="Type message here"
+                autoFocus={true}
                 onChange={(event) => {
                     setMessage(event.target.value);
                 }}
