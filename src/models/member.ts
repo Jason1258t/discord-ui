@@ -1,6 +1,6 @@
-import { User } from './user';
+import {User}  from './user';
 
-export interface Member extends User {
+export default interface Member extends User {
     guildId: number;
     nickname: string;
     joined_at: Date;

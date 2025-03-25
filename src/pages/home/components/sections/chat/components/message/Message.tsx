@@ -8,7 +8,17 @@ import arrowLeft from "./src/arrow-uturn-left.svg";
 import more from "./src/elipsis-horizontal.svg";
 import FastAction from "./FastAction";
 
-const Message = ({ data, showInfo }) => {
+import { Message as MessageData } from "../../../../../../../models/message";
+
+const Message = ({
+    data,
+    showInfo,
+    owned = true,
+}: {
+    data: MessageData;
+    showInfo: boolean;
+    owned?: boolean;
+}) => {
     const [isHover, bind] = useHover();
     const senderInfo = (
         <div style={{ alignItems: "end", display: "flex" }}>
@@ -48,19 +58,29 @@ const Message = ({ data, showInfo }) => {
             </div>
             {isHover && (
                 <div className={styles.fastActions}>
-                    <FastAction asset={pencil} alt="edit" hint="Редактировать"/>
-                    <FastAction asset={arrowLeft} alt="reply" hint="Ответить"/>
-                    <FastAction asset={arrowRight} alt="forward" hint="Переслать"/>
+                    {owned && (
+                        <FastAction
+                            asset={pencil}
+                            alt="edit"
+                            hint="Редактировать"
+                        />
+                    )}
+                    <FastAction asset={arrowLeft} alt="reply" hint="Ответить" />
+                    <FastAction
+                        asset={arrowRight}
+                        alt="forward"
+                        hint="Переслать"
+                    />
                     <div
                         style={{
                             height: 20,
                             width: 1,
                             background: "#949ba4",
                             borderRadius: 1,
-                            margin: "auto 4px"
+                            margin: "auto 4px",
                         }}
                     />
-                    <FastAction asset={more} alt="more" hint="Развернуть"/>
+                    <FastAction asset={more} alt="more" hint="Развернуть" />
                 </div>
             )}
         </div>

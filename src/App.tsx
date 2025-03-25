@@ -1,3 +1,4 @@
+import React from "react";
 import "./App.css";
 import Auth from "./pages/auth/auth";
 import HomePage from "./pages/home/home";

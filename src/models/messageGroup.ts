@@ -1,5 +1,7 @@
-import Message from './message';
+import { Message } from "./message";
 
-interface MessageGroup {
+export interface MessageGroup {
     messages: Message[];
+    id: number;
+    showDate: boolean;
 }
