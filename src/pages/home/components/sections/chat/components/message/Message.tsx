@@ -8,7 +8,7 @@ import arrowLeft from "./src/arrow-uturn-left.svg";
 import more from "./src/elipsis-horizontal.svg";
 import FastAction from "./FastAction";
 
-import { Message as MessageData } from "../../../../../../../models/message";
+import { Message as MessageData } from "@models/message";
 
 const Message = ({
     data,

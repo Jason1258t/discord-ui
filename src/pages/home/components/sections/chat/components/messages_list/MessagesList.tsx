@@ -3,7 +3,10 @@ import MessagesGroup from "../message/MessagesGroup";
 import styles from "./MessageLIst.module.css";
 import helloImage from "./assets/hello.jpeg";
 
-function groupMessages(messages) {
+import { Message as MessageData } from "@models/message";
+import { MessageGroup as MessageGroupData } from "@models/messageGroup";
+
+function groupMessages(messages: Array<MessageData>): Array<MessageGroupData> {
     if (messages.length === 0) return [];
 
     const groups = [];
@@ -23,7 +26,7 @@ function groupMessages(messages) {
             groups.push(currentGroup);
             currentGroup = {
                 messages: [currentMessage],
-                id: groups.at(-1).id + 1,
+                id: groups.at(-1)!.id + 1,
                 showDate: !isSameDay(currentMessage.created_at, lastTimestamp),
             };
         } else {
@@ -39,7 +42,7 @@ function groupMessages(messages) {
     return groups;
 }
 
-const MessagesList = ({ data }) => {
+const MessagesList = ({ data }: { data: Array<MessageData> }) => {
     const reversedCopy = [...data].reverse();
 
     const groups = groupMessages(data);
@@ -50,9 +53,6 @@ const MessagesList = ({ data }) => {
             {reversedGroups.map((g) => (
                 <MessagesGroup group={g} key={g.id} />
             ))}
-            {/* {reversedCopy.map((msg) => (
-                <Message data={msg} key={msg.id} />
-            ))} */}
         </div>
     ) : (
         <div className={styles.initialMessageHint}>

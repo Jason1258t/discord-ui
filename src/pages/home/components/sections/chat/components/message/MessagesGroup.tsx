@@ -1,8 +1,8 @@
-import React from "react";
 import Message from "./Message";
 import formatDate from "../../../../../../../utils/formatDate";
+import { MessageGroup as MessageGroupData } from "../../../../../../../models/messageGroup";
 
-const MessagesGroup = ({ group }) => {
+const MessagesGroup = ({ group }: { group: MessageGroupData }) => {
     const messages = group.messages;
     console.log(group);
     const groupTitle = group.showDate && (
@@ -22,7 +22,7 @@ const MessagesGroup = ({ group }) => {
 
 export default MessagesGroup;
 
-const Title = ({ info }) => {
+const Title = ({ info }: { info: string }) => {
     const lineStyle = {
         height: 1,
         background: "rgba(148, 155, 164, 0.4)",

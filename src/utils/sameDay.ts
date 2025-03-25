@@ -1,4 +1,4 @@
-export default function isSameDay(d1, d2) {
+export default function isSameDay(d1: Date, d2: Date) {
     return (
         d1.getDate() === d2.getDate() &&
         d1.getMonth() === d2.getMonth() &&
