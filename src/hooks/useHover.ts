@@ -1,20 +1,28 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-const useHover = (): [
-  boolean, 
-  {
-    onMouseEnter: () => void;
-    onMouseLeave: () => void;
-  }
+const useHover = (options?: {
+    onChange?: (isHovering: boolean) => void;
+}): [
+    boolean,
+    {
+        onMouseEnter: () => void;
+        onMouseLeave: () => void;
+    }
 ] => {
-  const [isHover, setHover] = useState(false);
+    const [isHover, setHover] = useState(false);
+    const { onChange } = options || {};
+    const bind = {
+        onMouseEnter: () => {
+            setHover(true);
+            onChange?.(true);
+        },
+        onMouseLeave: () => {
+            setHover(false);
+            onChange?.(false);
+        },
+    };
 
-  const bind = {
-    onMouseEnter: () => setHover(true),
-    onMouseLeave: () => setHover(false),
-  };
-
-  return [isHover, bind];
+    return [isHover, bind];
 };
 
 export default useHover;

@@ -1,6 +1,7 @@
 import styles from "./Message.module.css";
 import formatDateTime from "../../../../../../../utils/formatDateTime";
 import useHover from "../../../../../../../hooks/useHover";
+import { useState } from "react";
 
 import pencil from "./src/pencil.svg";
 import arrowRight from "./src/arrow-uturn-right.svg";
@@ -9,6 +10,7 @@ import more from "./src/elipsis-horizontal.svg";
 import FastAction from "./FastAction";
 
 import { Message as MessageData } from "@models/message";
+import MessageActions from "./actions_overlay/MessageActions";
 
 const Message = ({
     data,
@@ -19,7 +21,13 @@ const Message = ({
     showInfo: boolean;
     owned?: boolean;
 }) => {
-    const [isHover, bind] = useHover();
+    const [isMenuShows, setMenuShow] = useState<boolean>(false);
+    const [isHover, bind] = useHover({
+        onChange: (v) => {
+            if (!v) setMenuShow(v);
+        },
+    });
+
     const senderInfo = (
         <div style={{ alignItems: "end", display: "flex" }}>
             <span className={styles.username}>{data.author.display_name}</span>
@@ -80,7 +88,17 @@ const Message = ({
                             margin: "auto 4px",
                         }}
                     />
-                    <FastAction asset={more} alt="more" hint="Развернуть" />
+                    <FastAction
+                        asset={more}
+                        alt="more"
+                        hint="Развернуть"
+                        onClick={() => setMenuShow(!isMenuShows)}
+                    />
+                    {isMenuShows && (
+                        <MessageActions
+                            positionProperties={{ bottom: "100%", right: 0 }}
+                        />
+                    )}
                 </div>
             )}
         </div>

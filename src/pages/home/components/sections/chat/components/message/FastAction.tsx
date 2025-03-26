@@ -2,7 +2,17 @@ import React from "react";
 import styles from "./FastAction.module.css";
 import useHover from "../../../../../../../hooks/useHover";
 
-const FastAction = ({ asset, hint, onClick = null, alt }) => {
+const FastAction = ({
+    asset,
+    hint,
+    onClick = undefined,
+    alt,
+}: {
+    asset: string;
+    hint: string;
+    onClick?: (() => void) | undefined;
+    alt: string;
+}) => {
     const [isHover, bind] = useHover();
 
     return (

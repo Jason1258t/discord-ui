@@ -1,0 +1,38 @@
+.wrapper {
+    position: absolute;
+    background-color: #111214;
+    border-radius: 8px;
+    width: 200px;
+    overflow: scroll;
+}
+
+.action {
+    cursor: pointer;
+    display: flex;
+    padding: 8px;
+    justify-content: space-between;
+    align-items: center;
+    color: #b6bac0;
+    font-size: 14px;
+}
+
+.action:hover {
+    background-color: #26292d;
+}
+
+.action img {
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    filter: brightness(0) saturate(100%) invert(89%) sepia(9%) saturate(159%)
+        hue-rotate(177deg) brightness(83%) contrast(89%);
+}
+
+.destructive {
+    color: #df4f4b;
+}
+
+.destructive img {
+    filter: brightness(0) saturate(100%) invert(43%) sepia(29%) saturate(1289%)
+        hue-rotate(314deg) brightness(95%) contrast(97%);
+}
