@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const useContextMenu = () => {
     const [position, setPosition] = useState<{ x: number; y: number } | null>(
