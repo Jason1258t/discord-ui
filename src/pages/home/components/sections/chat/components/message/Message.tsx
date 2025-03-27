@@ -28,8 +28,7 @@ const Message = ({
             if (!v) setMenuOpen(v);
         },
     });
-    const { position, menuRef, handleContextMenu, closeMenu } =
-        useContextMenu();
+    const { position, handleContextMenu, closeMenu } = useContextMenu();
 
     const senderInfo = (
         <div style={{ alignItems: "end", display: "flex" }}>

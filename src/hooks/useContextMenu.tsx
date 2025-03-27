@@ -1,47 +1,37 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const useContextMenu = () => {
     const [position, setPosition] = useState<{ x: number; y: number } | null>(
         null
     );
-    const menuRef = useRef<HTMLDivElement>(null);
 
     const handleContextMenu = (e: React.MouseEvent) => {
         e.preventDefault();
-        console.log("right clicked");
-        setPosition({ x: e.clientX, y: e.clientY });
-        console.log(`is menu opened: ${position !== null}`);
-    };
 
-    useEffect(() => {
-        if (!position || !menuRef.current) return;
+        const pos = { x: e.clientX, y: e.clientY };
+        const width = 200;
+        const height = 150;
 
-        const menu = menuRef.current;
-        const { width, height } = menu.getBoundingClientRect();
         const { innerWidth, innerHeight } = window;
 
-        // Корректировка позиции
-        let x = position.x;
-        let y = position.y;
+        let x = pos.x;
+        let y = pos.y;
 
-        if (x + width > innerWidth) x = innerWidth - width - 10;
-        if (y + height > innerHeight) y = innerHeight - height - 10;
+        console.log(`got position ${x} ${y}`);
 
-        if (x < 0) x = 10;
-        if (y < 0) y = 10;
+        if (x + width > innerWidth) x -= width + 10;
+        if (y + height > innerHeight) y -= height + 10;
 
-        menu.style.left = `${x}px`;
-        menu.style.top = `${y}px`;
-    }, [position]);
+        console.log(`window constarints: w ${innerWidth} h ${innerHeight}`);
+        console.log(`positon: x ${x} y ${y}`);
+
+        setPosition({ x, y });
+    };
 
     return {
         position,
-        menuRef,
         handleContextMenu,
-        closeMenu: () => {
-            setPosition(null);
-            console.log(`menu closed, position: ${position}`);
-        },
+        closeMenu: () => setPosition(null),
     };
 };
 
