@@ -8,13 +8,18 @@ import pencil from "../src/pencil.svg";
 import arrowRight from "../src/arrow-uturn-right.svg";
 import arrowLeft from "../src/arrow-uturn-left.svg";
 import trash from "../src/trash.svg";
+import copy from "../src/copy.svg";
 
 const MessageActionsMenu = ({
     positionProperties,
     onTapOutside = undefined,
+    onCopy = undefined,
+    onDelete = undefined,
 }: {
     positionProperties: React.CSSProperties;
     onTapOutside?: (() => void) | undefined;
+    onCopy?: (() => void) | undefined;
+    onDelete?: (() => void) | undefined;
 }) => {
     const menuRef = useRef<HTMLDivElement>(null);
 
@@ -34,18 +39,20 @@ const MessageActionsMenu = ({
             <Action
                 title="Ответить"
                 asset={arrowLeft}
-                onClick={() => console.log("edit clicked")}
+                onClick={() => console.log("reply clicked")}
             />
             <Action
                 title="Переслать"
                 asset={arrowRight}
-                onClick={() => console.log("edit clicked")}
+                onClick={() => console.log("forward clicked")}
             />
+
+            <Action title="Копировать" asset={copy} onClick={onCopy} />
             <Action
                 title="Удалить"
                 asset={trash}
                 isDestructive={true}
-                onClick={() => console.log("edit clicked")}
+                onClick={onDelete}
             />
         </div>
     );

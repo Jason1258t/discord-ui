@@ -3,18 +3,18 @@ import styles from './MessageActions.module.css';
 
 export const Action = ({
     title,
-    onClick = null,
+    onClick = undefined,
     asset,
     isDestructive = false,
 }: {
     title: string;
-    onClick: (() => void) | null;
+    onClick?: (() => void) | undefined;
     asset: string;
     isDestructive?: boolean;
 }) => {
     return (
         <div
-            onClick={onClick ?? undefined}
+            onClick={onClick}
             className={`${styles.action} ${
                 isDestructive && styles.destructive
             }`}

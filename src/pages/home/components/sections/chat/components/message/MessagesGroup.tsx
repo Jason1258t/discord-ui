@@ -1,6 +1,6 @@
 import Message from "./Message";
-import formatDate from "../../../../../../../utils/formatDate";
-import { MessageGroup as MessageGroupData } from "../../../../../../../models/messageGroup";
+import formatDate from "utils/formatDate";
+import { MessageGroup as MessageGroupData } from "models/messageGroup";
 
 const MessagesGroup = ({ group }: { group: MessageGroupData }) => {
     const messages = group.messages;

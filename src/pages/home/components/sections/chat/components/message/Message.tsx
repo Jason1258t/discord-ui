@@ -1,7 +1,7 @@
 import styles from "./Message.module.css";
-import formatDateTime from "../../../../../../../utils/formatDateTime";
-import useHover from "../../../../../../../hooks/useHover";
-import useContextMenu from "../../../../../../../hooks/useContextMenu";
+import formatDateTime from "utils/formatDateTime";
+import useHover from "hooks/useHover";
+import useContextMenu from "hooks/useContextMenu";
 import { useState } from "react";
 
 import pencil from "./src/pencil.svg";
@@ -12,15 +12,19 @@ import FastAction from "./FastAction";
 
 import { Message as MessageData } from "@models/message";
 import MessageActionsMenu from "./actions_overlay/MessageActionsMenu";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Message = ({
     data,
     showInfo,
     owned = true,
+    onMsgDelete = undefined,
 }: {
     data: MessageData;
     showInfo: boolean;
     owned?: boolean;
+    onMsgDelete?: ((id: number) => void) | undefined;
 }) => {
     const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
     const [isHover, bind] = useHover({
@@ -38,6 +42,18 @@ const Message = ({
             </span>
         </div>
     );
+
+    const onCopy = async () => {
+        navigator.clipboard.writeText(data.text);
+        toast.success("Текст скопирован!", {
+            position: "bottom-center",
+            autoClose: 3000,
+        });
+    };
+
+    const onDelete = () => {
+        onMsgDelete?.(data.id);
+    };
 
     return (
         <div
@@ -108,6 +124,8 @@ const Message = ({
                                 right: 0,
                                 position: "absolute",
                             }}
+                            onCopy={onCopy}
+                            onDelete={onDelete}
                         />
                     )}
                 </div>
@@ -122,6 +140,8 @@ const Message = ({
                         position: "fixed",
                         zIndex: 10000,
                     }}
+                    onDelete={onDelete}
+                    onCopy={onCopy}
                 />
             )}
         </div>
