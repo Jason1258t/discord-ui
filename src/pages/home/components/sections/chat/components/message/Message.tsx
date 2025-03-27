@@ -1,6 +1,7 @@
 import styles from "./Message.module.css";
 import formatDateTime from "../../../../../../../utils/formatDateTime";
 import useHover from "../../../../../../../hooks/useHover";
+import useContextMenu from "../../../../../../../hooks/useContextMenu";
 import { useState } from "react";
 
 import pencil from "./src/pencil.svg";
@@ -10,7 +11,7 @@ import more from "./src/elipsis-horizontal.svg";
 import FastAction from "./FastAction";
 
 import { Message as MessageData } from "@models/message";
-import MessageActions from "./actions_overlay/MessageActions";
+import MessageActionsMenu from "./actions_overlay/MessageActionsMenu";
 
 const Message = ({
     data,
@@ -21,12 +22,14 @@ const Message = ({
     showInfo: boolean;
     owned?: boolean;
 }) => {
-    const [isMenuShows, setMenuShow] = useState<boolean>(false);
+    const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
     const [isHover, bind] = useHover({
         onChange: (v) => {
-            if (!v) setMenuShow(v);
+            if (!v) setMenuOpen(v);
         },
     });
+    const { position, menuRef, handleContextMenu, closeMenu } =
+        useContextMenu();
 
     const senderInfo = (
         <div style={{ alignItems: "end", display: "flex" }}>
@@ -38,7 +41,12 @@ const Message = ({
     );
 
     return (
-        <div className={styles.msgwrapper} {...bind}>
+        <div
+            className={styles.msgwrapper}
+            {...bind}
+            onContextMenu={handleContextMenu}
+            onClick={closeMenu}
+        >
             {showInfo ? (
                 <img
                     src={data.author.avatar}
@@ -92,14 +100,30 @@ const Message = ({
                         asset={more}
                         alt="more"
                         hint="Развернуть"
-                        onClick={() => setMenuShow(!isMenuShows)}
+                        onClick={() => setMenuOpen(!isMenuOpen)}
                     />
-                    {isMenuShows && (
-                        <MessageActions
-                            positionProperties={{ bottom: "100%", right: 0 }}
+                    {isMenuOpen && (
+                        <MessageActionsMenu
+                            positionProperties={{
+                                bottom: "100%",
+                                right: 0,
+                                position: "absolute",
+                            }}
                         />
                     )}
                 </div>
+            )}
+            {position && (
+                <MessageActionsMenu
+                    // menuRef={menuRef}
+                    onTapOutside={() => closeMenu()}
+                    positionProperties={{
+                        left: position?.x,
+                        top: position?.y,
+                        position: "fixed",
+                        zIndex: 10000,
+                    }}
+                />
             )}
         </div>
     );

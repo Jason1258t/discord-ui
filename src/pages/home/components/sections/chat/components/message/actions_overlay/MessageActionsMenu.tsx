@@ -1,42 +1,31 @@
-import React from "react";
+import React, { useRef } from "react";
 import styles from "./MessageActions.module.css";
+import Action from "./Action";
+
+import useTapOutside from "hooks/useTapOutside";
 
 import pencil from "../src/pencil.svg";
 import arrowRight from "../src/arrow-uturn-right.svg";
 import arrowLeft from "../src/arrow-uturn-left.svg";
 import trash from "../src/trash.svg";
 
-export const Action = ({
-    title,
-    onClick = null,
-    asset,
-    isDestructive = false,
-}: {
-    title: string;
-    onClick: (() => void) | null;
-    asset: string;
-    isDestructive?: boolean;
-}) => {
-    return (
-        <div
-            onClick={onClick ?? undefined}
-            className={`${styles.action} ${
-                isDestructive && styles.destructive
-            }`}
-        >
-            {title}
-            <img src={asset} alt=""/>
-        </div>
-    );
-};
-
-const MessageActions = ({
+const MessageActionsMenu = ({
     positionProperties,
+    onTapOutside = undefined,
 }: {
     positionProperties: React.CSSProperties;
+    onTapOutside?: (() => void) | undefined;
 }) => {
+    const menuRef = useRef<HTMLDivElement>(null);
+
+    useTapOutside(menuRef, () => onTapOutside?.());
+
     return (
-        <div className={styles.wrapper} style={positionProperties}>
+        <div
+            className={styles.wrapper}
+            style={positionProperties}
+            ref={menuRef}
+        >
             <Action
                 title="Редактировать"
                 asset={pencil}
@@ -62,4 +51,4 @@ const MessageActions = ({
     );
 };
 
-export default MessageActions;
+export default MessageActionsMenu;
