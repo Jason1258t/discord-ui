@@ -1,29 +1,24 @@
 import { useState } from "react";
 
+interface Posiiton {
+    x: number;
+    y: number;
+}
 const useContextMenu = () => {
-    const [position, setPosition] = useState<{ x: number; y: number } | null>(
-        null
-    );
+    const [position, setPosition] = useState<Posiiton | null>(null);
+
+    const MENU_WIDTH = 200;
+    const MENU_HEIGHT = 150;
 
     const handleContextMenu = (e: React.MouseEvent) => {
         e.preventDefault();
-
-        const pos = { x: e.clientX, y: e.clientY };
-        const width = 200;
-        const height = 150;
-
         const { innerWidth, innerHeight } = window;
 
-        let x = pos.x;
-        let y = pos.y;
+        let x = e.clientX;
+        let y = e.clientY;
 
-        console.log(`got position ${x} ${y}`);
-
-        if (x + width > innerWidth) x -= width + 10;
-        if (y + height > innerHeight) y -= height + 10;
-
-        console.log(`window constarints: w ${innerWidth} h ${innerHeight}`);
-        console.log(`positon: x ${x} y ${y}`);
+        if (x + MENU_WIDTH > innerWidth) x -= MENU_WIDTH + 10;
+        if (y + MENU_HEIGHT > innerHeight) y -= MENU_HEIGHT + 10;
 
         setPosition({ x, y });
     };
