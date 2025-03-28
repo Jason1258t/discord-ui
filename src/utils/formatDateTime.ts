@@ -1,6 +1,6 @@
 import isSameDay from "./sameDay";
 
-export default function formatDateTime(date, onlyTime = false) {
+export default function formatDateTime(date: Date, onlyTime = false) {
     const now = new Date();
 
     if (!(date instanceof Date)) {

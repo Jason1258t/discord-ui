@@ -1,7 +1,7 @@
-export  interface User {
+export interface User {
     id: number;
     username: string;
-    display_name: string;
+    displayName: string;
     avatar: string;
-    created_at: Date;
+    createdAt: Date;
 }

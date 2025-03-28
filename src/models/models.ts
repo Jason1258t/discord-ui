@@ -13,9 +13,9 @@ class TestModels {
         this._user = {
             id: 1,
             username: "chansyao",
-            display_name: "Satoru Gojo",
+            displayName: "Satoru Gojo",
             avatar: "https://i.pinimg.com/736x/f4/fd/36/f4fd3614a9ebfd84405302ee68cb296a.jpg",
-            created_at: new Date(2000, 11, 12), // Месяцы в JS: 0-11 (декабрь = 11)
+            createdAt: new Date(2000, 11, 12), // Месяцы в JS: 0-11 (декабрь = 11)
         };
 
         this._guild = {
@@ -44,7 +44,7 @@ class TestModels {
             id: 1,
             user: this.user,
             lastMessage: this.message,
-            name: this._user.display_name,
+            name: this._user.displayName,
         };
     }
 

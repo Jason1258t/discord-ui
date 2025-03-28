@@ -37,7 +37,7 @@ const Message = ({
 
     const senderInfo = (
         <div style={{ alignItems: "end", display: "flex" }}>
-            <span className={styles.username}>{data.author.display_name}</span>
+            <span className={styles.username}>{data.author.displayName}</span>
             <span className={styles.date}>
                 {formatDateTime(data.created_at)}
             </span>
