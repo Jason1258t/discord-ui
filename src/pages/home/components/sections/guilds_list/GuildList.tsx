@@ -1,14 +1,21 @@
 import React from "react";
 import HomeButton from "../../home_button/home_button";
 import GuildWidget from "../../guild/guild";
-import "./GuildList.css";
+import styles from "./GuildList.module.css";
+import { Guild } from "@models/guild";
 
-const GuildsListSection = ({ guilds, goHome = null }) => {
+const GuildsListSection = ({
+    guilds,
+    goHome = undefined,
+}: {
+    guilds: Array<Guild>;
+    goHome: (() => void) | undefined;
+}) => {
     return (
-        <div className="guilds-section" onClick={goHome}>
+        <div className={styles.guildsSection} onClick={goHome}>
             <HomeButton></HomeButton>
-            <div className="splitter"></div>
-            <div className="list">
+            <div className={styles.splitter}></div>
+            <div className={styles.list}>
                 {guilds.map((data) => (
                     <GuildWidget data={data} key={data.id}></GuildWidget>
                 ))}

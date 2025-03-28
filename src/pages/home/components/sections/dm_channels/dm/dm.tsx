@@ -1,12 +1,21 @@
+import { DMChannel } from "@models/channel/dm_channel";
 import styles from "./dm.module.css";
 
-const Dm = ({ data, onClick, isSelected = false }) => {
+const Dm = ({
+    data,
+    onClick,
+    isSelected = false,
+}: {
+    data: DMChannel;
+    onClick?: ((id: number) => void) | undefined;
+    isSelected: boolean;
+}) => {
     return (
         <div
             key={data.id}
             className={`${styles.wrapper} ${isSelected ? styles.active : ""}`}
             onClick={() => {
-                onClick(data.id);
+                onClick?.(data.id);
                 console.log(data.id);
                 console.log(`clicked on ${data.id}`);
             }}
@@ -22,14 +31,14 @@ const Dm = ({ data, onClick, isSelected = false }) => {
                         isSelected ? styles.active : ""
                     }`}
                 >
-                    {data.user.display_name}
+                    {data.user.displayName}
                 </p>
                 <p
                     className={`${styles.p} ${styles.lastMessage} ${
                         isSelected ? styles.active : ""
                     }`}
                 >
-                    {data.message ? data.message.text : "Начните общение"}
+                    {data.lastMessage ? data.lastMessage.text : "Начните общение"}
                 </p>
             </div>
         </div>

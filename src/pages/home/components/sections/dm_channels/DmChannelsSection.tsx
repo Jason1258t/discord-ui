@@ -1,10 +1,19 @@
-import { React, useState } from "react";
-import TextField from "../../../../../components/text/textfield";
+import { useState } from "react";
+import TextField from "components/text/textfield";
 import styles from "./DmChannelsSection.module.css";
 import Dm from "./dm/dm";
 import { ReactComponent as PlusSvg } from "../../../../../images/plus.svg";
+import { DMChannel } from "@models/channel/dm_channel";
 
-const DmChannelsSection = ({ dms, onClick, currentChat }) => {
+const DmChannelsSection = ({
+    dms,
+    onClick,
+    currentChat,
+}: {
+    dms: Array<DMChannel>;
+    onClick?: ((id: number) => void) | undefined;
+    currentChat: number;
+}) => {
     const [foundDms, setFoundDms] = useState(dms);
     const [useFound, setUseFound] = useState(false);
 
@@ -19,7 +28,7 @@ const DmChannelsSection = ({ dms, onClick, currentChat }) => {
 
                         setFoundDms(
                             dms.filter((dm) =>
-                                dm.user.display_name
+                                dm.user.displayName
                                     .toLowerCase()
                                     .includes(e.target.value.toLowerCase())
                             )
