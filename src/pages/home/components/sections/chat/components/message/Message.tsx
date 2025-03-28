@@ -4,27 +4,28 @@ import useHover from "hooks/useHover";
 import useContextMenu from "hooks/useContextMenu";
 import { useState } from "react";
 
-import pencil from "./src/pencil.svg";
-import arrowRight from "./src/arrow-uturn-right.svg";
-import arrowLeft from "./src/arrow-uturn-left.svg";
-import more from "./src/elipsis-horizontal.svg";
-import FastAction from "./FastAction";
-
 import { Message as MessageData } from "@models/message";
 import MessageActionsMenu from "./actions_overlay/MessageActionsMenu";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import FastActionsMenu from "./fast_actions/FastActionsMenu";
 
 const Message = ({
     data,
     showInfo,
     owned = true,
-    onMsgDelete = undefined,
+    onMsgDelete = undefined, // later it whould be taken from zustand
+    onMsgEdit = undefined,
+    onMsgReply = undefined,
+    onMsgForward = undefined,
 }: {
     data: MessageData;
     showInfo: boolean;
     owned?: boolean;
     onMsgDelete?: ((id: number) => void) | undefined;
+    onMsgEdit?: ((id: number) => void) | undefined;
+    onMsgReply?: ((id: number) => void) | undefined;
+    onMsgForward?: ((id: number) => void) | undefined;
 }) => {
     const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
     const [isHover, bind] = useHover({
@@ -44,15 +45,28 @@ const Message = ({
     );
 
     const onCopy = async () => {
-        navigator.clipboard.writeText(data.text);
+        await navigator.clipboard.writeText(data.text);
         toast.success("Текст скопирован!", {
             position: "bottom-center",
             autoClose: 3000,
         });
     };
 
-    const onDelete = () => {
-        onMsgDelete?.(data.id);
+    const onDelete = () => onMsgDelete?.(data.id);
+    const onEdit = () => onMsgEdit?.(data.id);
+    const onReply = () => onMsgReply?.(data.id);
+    const onForward = () => onMsgForward?.(data.id);
+
+    const baseActions = {
+        onEdit,
+        onReply,
+        onForward,
+    };
+
+    const menuProps = {
+        onCopy,
+        onDelete,
+        ...{ baseActions },
     };
 
     return (
@@ -88,51 +102,16 @@ const Message = ({
                 <p className={styles.text}>{data.text}</p>
             </div>
             {isHover && (
-                <div className={styles.fastActions}>
-                    {owned && (
-                        <FastAction
-                            asset={pencil}
-                            alt="edit"
-                            hint="Редактировать"
-                        />
-                    )}
-                    <FastAction asset={arrowLeft} alt="reply" hint="Ответить" />
-                    <FastAction
-                        asset={arrowRight}
-                        alt="forward"
-                        hint="Переслать"
-                    />
-                    <div
-                        style={{
-                            height: 20,
-                            width: 1,
-                            background: "#949ba4",
-                            borderRadius: 1,
-                            margin: "auto 4px",
-                        }}
-                    />
-                    <FastAction
-                        asset={more}
-                        alt="more"
-                        hint="Развернуть"
-                        onClick={() => setMenuOpen(!isMenuOpen)}
-                    />
-                    {isMenuOpen && (
-                        <MessageActionsMenu
-                            positionProperties={{
-                                bottom: "100%",
-                                right: 0,
-                                position: "absolute",
-                            }}
-                            onCopy={onCopy}
-                            onDelete={onDelete}
-                        />
-                    )}
-                </div>
+                <FastActionsMenu
+                    onExtend={() => setMenuOpen(!isMenuOpen)}
+                    owned={owned}
+                    isMenuOpen={isMenuOpen}
+                    {...baseActions}
+                    menuProps={menuProps}
+                />
             )}
             {position && (
                 <MessageActionsMenu
-                    // menuRef={menuRef}
                     onTapOutside={() => closeMenu()}
                     positionProperties={{
                         left: position?.x,
@@ -140,8 +119,7 @@ const Message = ({
                         position: "fixed",
                         zIndex: 10000,
                     }}
-                    onDelete={onDelete}
-                    onCopy={onCopy}
+                    {...menuProps}
                 />
             )}
         </div>

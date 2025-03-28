@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "./FastAction.module.css";
-import useHover from "../../../../../../../hooks/useHover";
+import styles from "./FastActions.module.css";
+import useHover from "../../../../../../../../hooks/useHover";
 
 const FastAction = ({
     asset,

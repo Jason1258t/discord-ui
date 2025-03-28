@@ -15,11 +15,17 @@ const MessageActionsMenu = ({
     onTapOutside = undefined,
     onCopy = undefined,
     onDelete = undefined,
+    onEdit = undefined,
+    onReply = undefined,
+    onForward = undefined,
 }: {
     positionProperties: React.CSSProperties;
     onTapOutside?: (() => void) | undefined;
     onCopy?: (() => void) | undefined;
     onDelete?: (() => void) | undefined;
+    onEdit?: (() => void) | undefined;
+    onReply?: (() => void) | undefined;
+    onForward?: (() => void) | undefined;
 }) => {
     const menuRef = useRef<HTMLDivElement>(null);
 
@@ -31,22 +37,9 @@ const MessageActionsMenu = ({
             style={positionProperties}
             ref={menuRef}
         >
-            <Action
-                title="Редактировать"
-                asset={pencil}
-                onClick={() => console.log("edit clicked")}
-            />
-            <Action
-                title="Ответить"
-                asset={arrowLeft}
-                onClick={() => console.log("reply clicked")}
-            />
-            <Action
-                title="Переслать"
-                asset={arrowRight}
-                onClick={() => console.log("forward clicked")}
-            />
-
+            <Action title="Редактировать" asset={pencil} onClick={onEdit} />
+            <Action title="Ответить" asset={arrowLeft} onClick={onReply} />
+            <Action title="Переслать" asset={arrowRight} onClick={onForward} />
             <Action title="Копировать" asset={copy} onClick={onCopy} />
             <Action
                 title="Удалить"

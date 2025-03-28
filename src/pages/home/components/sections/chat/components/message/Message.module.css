@@ -47,13 +47,3 @@
     justify-content: space-between;
 }
 
-.fastActions {
-    position: absolute;
-    background-color: #2B2D31;
-    border-radius: 8px;
-    right: 50px;
-    top: -16px;
-    display: flex;
-    align-items: center;
-    box-shadow: 0 0 2px  #616161;
-}
