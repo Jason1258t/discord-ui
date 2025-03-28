@@ -1,5 +1,5 @@
 import React from "react";
-import HomeButton from "../../home_button/home_button";
+import HomeButton from "../../home_button/HomeButton";
 import GuildWidget from "../../guild/guild";
 import styles from "./GuildList.module.css";
 import { Guild } from "@models/guild";

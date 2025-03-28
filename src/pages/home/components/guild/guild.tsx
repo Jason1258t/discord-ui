@@ -1,11 +1,10 @@
-import { React } from "react";
-import "./styles.css";
+import { Guild } from "@models/guild";
+import styles from "./guild.module.css";
 
-const GuildWidget = ({ data }) => {
-
+const GuildWidget = ({ data }: { data: Guild }) => {
     return (
         <div
-            className="guild"
+            className={styles.guild}
             onClick={() => console.log("open guild " + data.name)}
         >
             <img src={data.icon} alt={data.name}></img>

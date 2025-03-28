@@ -45,7 +45,7 @@ const HomePage = () => {
                 currentChat={currentChatId}
             />
             {currentChatId !== -1 ? (
-                <Chat data={testDms.find((e) => e.id === currentChatId)} />
+                <Chat data={testDms.find((e) => e.id === currentChatId)!} />
             ) : (
                 <Wampus />
             )}

@@ -1,11 +1,11 @@
 import React from "react";
-import "./styles.css";
 import discord_logo from "../../../../images/ds_logo_2.png";
+import styles from "./HomeButtom.module.css";
 
 const HomeButton = () => {
     return (
-        <div className="home-button">
-            <img src={discord_logo} alt=''/>
+        <div className={styles.homeButton}>
+            <img src={discord_logo} alt="go home" />
         </div>
     );
 };
