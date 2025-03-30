@@ -39,7 +39,7 @@ const Message = ({
         <div style={{ alignItems: "end", display: "flex" }}>
             <span className={styles.username}>{data.author.displayName}</span>
             <span className={styles.date}>
-                {formatDateTime(data.created_at)}
+                {formatDateTime(data.createdAt)}
             </span>
         </div>
     );
@@ -90,7 +90,7 @@ const Message = ({
                         flex: "0 0 40px",
                     }}
                 >
-                    {isHover && formatDateTime(data.created_at, true)}
+                    {isHover && formatDateTime(data.createdAt, true)}
                 </div>
             )}
 

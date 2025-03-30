@@ -1,13 +1,13 @@
 import { create } from "zustand";
 import { AccountData } from "@models/accountData";
 
-interface StoreState {
+interface AuthStoreState {
     userdata: AccountData | null;
     setUserData: (data: AccountData) => void;
     clearUserData: () => void;
 }
 
-const useStore = create<StoreState>((set) => ({
+const useAuthStore = create<AuthStoreState>((set) => ({
     userdata: null,
 
     setUserData: (data: AccountData) => {
@@ -27,4 +27,4 @@ const useStore = create<StoreState>((set) => ({
     },
 }));
 
-export default useStore;
+export default useAuthStore;

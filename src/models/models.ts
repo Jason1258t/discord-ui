@@ -37,7 +37,7 @@ class TestModels {
             text: "Hello yo yo yo yoy yo y e e e o",
             author: this.user,
             channel: this.dm,
-            created_at: new Date(2000, 11, 12),
+            createdAt: new Date(2000, 11, 12),
         };
 
         this._dm = {

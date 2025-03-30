@@ -6,7 +6,7 @@ const MessagesGroup = ({ group }: { group: MessageGroupData }) => {
     const messages = group.messages;
     console.log(group);
     const groupTitle = group.showDate && (
-        <Title info={formatDate(group.messages[0].created_at)} />
+        <Title info={formatDate(group.messages[0].createdAt)} />
     );
     console.log(groupTitle);
     return (

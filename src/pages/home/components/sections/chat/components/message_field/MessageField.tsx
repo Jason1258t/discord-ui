@@ -18,7 +18,7 @@ const MessageField = ({
                 let t = new TestModels().message;
                 t.text = message;
                 t.id = id;
-                t.created_at = new Date();
+                t.createdAt = new Date();
 
                 setId(id + 1);
                 if (message.trim()) {

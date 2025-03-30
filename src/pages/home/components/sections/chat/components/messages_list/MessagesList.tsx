@@ -11,29 +11,29 @@ function groupMessages(messages: Array<MessageData>): Array<MessageGroupData> {
 
     const groups = [];
     let currentGroup = { messages: [messages[0]], id: 0, showDate: true };
-    let lastTimestamp = messages[0].created_at;
+    let lastTimestamp = messages[0].createdAt;
 
     for (let i = 1; i < messages.length; i++) {
         const currentMessage = messages[i];
         const timeDifference =
-            (currentMessage.created_at.getTime() - lastTimestamp.getTime()) /
+            (currentMessage.createdAt.getTime() - lastTimestamp.getTime()) /
             (1000 * 60); // Difference in minutes
 
         if (
             timeDifference > 2 ||
-            !isSameDay(currentMessage.created_at, lastTimestamp)
+            !isSameDay(currentMessage.createdAt, lastTimestamp)
         ) {
             groups.push(currentGroup);
             currentGroup = {
                 messages: [currentMessage],
                 id: groups.at(-1)!.id + 1,
-                showDate: !isSameDay(currentMessage.created_at, lastTimestamp),
+                showDate: !isSameDay(currentMessage.createdAt, lastTimestamp),
             };
         } else {
             currentGroup.messages.push(currentMessage);
         }
 
-        lastTimestamp = currentMessage.created_at;
+        lastTimestamp = currentMessage.createdAt;
     }
 
     // Push the last group

@@ -3,7 +3,7 @@
 import TextField from "../../../components/text/textfield";
 import Button from "../../../components/buttons/button";
 import { useNavigate } from "react-router";
-import useStore from "../../../zustand/store";
+import useAuthStore from "../../../zustand/authStore";
 import { useEffect, useState } from "react";
 import styles from "../auth.module.css";
 
