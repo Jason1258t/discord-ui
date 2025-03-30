@@ -6,12 +6,12 @@ import { DMChannel } from "@models/channel/dm_channel";
 import useChatStore from "zustand/chat/chatStore";
 
 const Chat = () => {
-    const { channel, messages } = useChatStore();
+    const { channel } = useChatStore();
 
     return (
         <div className={styles.chat}>
             <DMHeader data={channel as DMChannel} />
-            <MessagesList data={messages} />
+            <MessagesList/>
             <MessageField/>
         </div>
     );

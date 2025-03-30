@@ -4,7 +4,6 @@ import { User } from "@models/user";
 import { create } from "zustand";
 import { InputState, InputMode, InputEditState } from "./inputState";
 
-
 interface ChatStoreState {
     messages: Message[];
     inputState: InputState;
@@ -20,6 +19,8 @@ interface ChatStoreState {
 }
 
 const useChatStore = create<ChatStoreState>((set, get) => {
+    const messagesCache: { [key: number]: Message[] } = {};
+
     const sendMessage = () => {
         set((state) => {
             if (
@@ -75,7 +76,18 @@ const useChatStore = create<ChatStoreState>((set, get) => {
             mode: InputMode.Base,
         },
         setAuthorData: (author) => set((state) => ({ authorData: author })),
-        setChannelData: (channel) => set((state) => ({ channel: channel })),
+        setChannelData: (channel) => {
+            set((state) => {
+                if (state.channel !== null && state.messages.length > 0) {
+                    messagesCache[state.channel.id] = state.messages;
+                }
+                const cache =
+                    messagesCache && channel.id in messagesCache
+                        ? messagesCache[channel.id]
+                        : undefined;
+                return { channel: channel, messages: cache ?? [] };
+            });
+        },
         setEditMesssage: (id) => {},
         deleteMessage: (id) =>
             set((state) => ({

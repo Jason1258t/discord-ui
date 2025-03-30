@@ -9,21 +9,18 @@ import MessageActionsMenu from "./actions_overlay/MessageActionsMenu";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import FastActionsMenu from "./fast_actions/FastActionsMenu";
+import useChatStore from "zustand/chat/chatStore";
 
 const Message = ({
     data,
     showInfo,
     owned = true,
-    onMsgDelete = undefined, // later it whould be taken from zustand
-    onMsgEdit = undefined,
     onMsgReply = undefined,
     onMsgForward = undefined,
 }: {
     data: MessageData;
     showInfo: boolean;
     owned?: boolean;
-    onMsgDelete?: ((id: number) => void) | undefined;
-    onMsgEdit?: ((id: number) => void) | undefined;
     onMsgReply?: ((id: number) => void) | undefined;
     onMsgForward?: ((id: number) => void) | undefined;
 }) => {
@@ -52,8 +49,10 @@ const Message = ({
         });
     };
 
-    const onDelete = () => onMsgDelete?.(data.id);
-    const onEdit = () => onMsgEdit?.(data.id);
+    const { deleteMessage, setEditMesssage } = useChatStore();
+
+    const onDelete = () => deleteMessage(data.id);
+    const onEdit = () => setEditMesssage(data.id);
     const onReply = () => onMsgReply?.(data.id);
     const onForward = () => onMsgForward?.(data.id);
 

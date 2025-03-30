@@ -1,3 +1,4 @@
+import useChatStore from "zustand/chat/chatStore";
 import isSameDay from "../../../../../../../utils/sameDay";
 import MessagesGroup from "../message/MessagesGroup";
 import styles from "./MessageLIst.module.css";
@@ -42,10 +43,12 @@ function groupMessages(messages: Array<MessageData>): Array<MessageGroupData> {
     return groups;
 }
 
-const MessagesList = ({ data }: { data: Array<MessageData> }) => {
-    const reversedCopy = [...data].reverse();
+const MessagesList = () => {
+    const { messages } = useChatStore();
 
-    const groups = groupMessages(data);
+    const reversedCopy = [...messages].reverse();
+
+    const groups = groupMessages(messages);
     const reversedGroups = [...groups].reverse();
 
     return reversedCopy.length > 0 ? (
