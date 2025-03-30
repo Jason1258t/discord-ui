@@ -1,15 +1,12 @@
 import { useState } from "react";
 import styles from "./MessageField.module.css";
-import { TestModels } from "../../../../../../../models/models";
-import { Message } from "@models/message";
+import { TestModels } from "models/models";
+import useChatStore from "zustand/chat/chatStore";
 
-const MessageField = ({
-    addMessage,
-}: {
-    addMessage: (msg: Message) => void;
-}) => {
+const MessageField = () => {
     const [message, setMessage] = useState("");
     const [id, setId] = useState(0);
+    const { onTextChanged, onConfirm } = useChatStore();
 
     return (
         <form
@@ -22,7 +19,7 @@ const MessageField = ({
 
                 setId(id + 1);
                 if (message.trim()) {
-                    addMessage(t);
+                    onConfirm();
                     setMessage("");
                 }
                 // console.log(t);
@@ -36,6 +33,7 @@ const MessageField = ({
                 autoFocus={true}
                 onChange={(event) => {
                     setMessage(event.target.value);
+                    onTextChanged(event.target.value.trim());
                 }}
             />
         </form>

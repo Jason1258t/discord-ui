@@ -4,6 +4,7 @@ import Chat from "./components/sections/chat/chat";
 import { TestModels } from "models/models";
 import { useState } from "react";
 import Wampus from "./components/wampus/wampus";
+import useChatStore from "zustand/chat/chatStore";
 
 const models = new TestModels();
 const testGuild = models.guild;
@@ -36,16 +37,23 @@ for (let i = 0; i < testDms.length; i++) {
 const HomePage = () => {
     const [currentChatId, setCurrentChatId] = useState(-1);
 
+    const { setAuthorData, setChannelData } = useChatStore();
+    setChannelData(testDms.find((e) => e.id === currentChatId)!);
+    setAuthorData(models.user);
+
     return (
         <div style={{ display: "flex", width: "100vw", height: "100vh" }}>
-            <GuildsListSection guilds={testGuilds} goHome={() => setCurrentChatId(-1)}/>
+            <GuildsListSection
+                guilds={testGuilds}
+                goHome={() => setCurrentChatId(-1)}
+            />
             <DmChannelsSection
                 dms={testDms}
                 onClick={setCurrentChatId}
                 currentChat={currentChatId}
             />
             {currentChatId !== -1 ? (
-                <Chat data={testDms.find((e) => e.id === currentChatId)!} />
+                <Chat  />
             ) : (
                 <Wampus />
             )}

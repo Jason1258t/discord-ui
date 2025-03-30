@@ -2,6 +2,8 @@ import { Channel } from "@models/channel/channel";
 import { Message } from "@models/message";
 import { User } from "@models/user";
 import { create } from "zustand";
+import { InputState, InputMode, InputEditState } from "./inputState";
+
 
 interface ChatStoreState {
     messages: Message[];

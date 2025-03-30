@@ -1,29 +1,18 @@
 import styles from "./chat.module.css";
-import { useEffect, useState } from "react";
 import MessageField from "./components/message_field/MessageField";
 import MessagesList from "./components/messages_list/MessagesList";
 import DMHeader from "./components/header/DmHeader";
 import { DMChannel } from "@models/channel/dm_channel";
-import { Message } from "@models/message";
+import useChatStore from "zustand/chat/chatStore";
 
-const Chat = ({ data }: { data: DMChannel }) => {
-    const [messages, setMessages] = useState<Array<Message>>([]);
-
-    const addMessage = (msg: Message) => {
-        if (msg["text"].trim()) {
-            setMessages((prevMessages) => [...prevMessages, msg]);
-        }
-    };
-
-    useEffect(() => {
-        console.log(messages);
-    }, [messages]);
+const Chat = () => {
+    const { channel, messages } = useChatStore();
 
     return (
         <div className={styles.chat}>
-            <DMHeader data={data} />
+            <DMHeader data={channel as DMChannel} />
             <MessagesList data={messages} />
-            <MessageField addMessage={addMessage} />
+            <MessageField/>
         </div>
     );
 };
