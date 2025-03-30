@@ -1,72 +1,61 @@
-import { Channel } from "@models/channel/channel";
 import { Message } from "@models/message";
-import { User } from "@models/user";
 import { create } from "zustand";
-import { InputState, InputMode, InputEditState } from "./inputState";
-
-interface ChatStoreState {
-    messages: Message[];
-    inputState: InputState;
-    setEditMesssage: (id: number) => void;
-    deleteMessage: (id: number) => void;
-    onTextChanged: (text: string) => void;
-    onConfirm: () => void;
-    reset: () => void;
-    channel: Channel | null;
-    authorData: User | null;
-    setAuthorData: (author: User) => void;
-    setChannelData: (channel: Channel) => void;
-}
+import { InputMode, InputEditState } from "./inputState";
+import { ChatStoreState } from "./chatStoreState";
+import { MessagesCache } from "./messagesCache";
 
 const useChatStore = create<ChatStoreState>((set, get) => {
-    const messagesCache: { [key: number]: Message[] } = {};
+    const messagesCache: MessagesCache = {};
 
     const sendMessage = () => {
-        set((state) => {
-            if (
-                !state.channel ||
-                !state.authorData ||
-                !state.inputState.text.trim()
-            )
-                return state;
+        const { channel, authorData, inputState } = get();
+        if (!channel || !authorData || !inputState.text.trim()) return;
 
-            const lastId =
-                state.messages.length > 0
-                    ? state.messages[state.messages.length - 1].id
-                    : 0;
+        const lastId = get().messages.reduce(
+            (max, msg) => Math.max(max, msg.id),
+            0
+        );
 
-            const newMessage: Message = {
-                id: lastId + 1,
-                text: state.inputState.text,
-                channel: state.channel,
-                author: state.authorData,
-                createdAt: new Date(),
-            };
+        const newMessage: Message = {
+            id: lastId + 1,
+            text: inputState.text,
+            channel,
+            author: authorData,
+            createdAt: new Date(),
+        };
 
-            return {
-                messages: [...state.messages, newMessage],
-            };
-        });
+        set((state) => ({
+            messages: [...state.messages, newMessage],
+        }));
     };
 
     const editMessage = () => {
-        set((state) => {
-            return {
-                messages: state.messages.map((e) => {
-                    if (
-                        e.id === (state.inputState as InputEditState).messageId
-                    ) {
-                        return {
-                            ...e,
-                            text: state.inputState.text,
-                        };
-                    } else {
-                        return e;
-                    }
-                }),
-            };
+        const { inputState, messages } = get();
+
+        if (inputState.mode !== InputMode.Edit) return;
+
+        const editState = inputState as InputEditState;
+
+        set({
+            messages: messages.map((msg) =>
+                msg.id === editState.messageId
+                    ? { ...msg, text: inputState.text }
+                    : msg
+            ),
         });
     };
+
+    const saveCurrentMessagesToCache = () => {
+        const { channel, messages } = get();
+        if (channel && messages.length > 0) {
+            messagesCache[channel.id] = messages;
+        }
+    };
+
+    const loadMessagesFromCache = (channelId: number): Message[] => {
+        return messagesCache[channelId] ?? [];
+    };
+
     return {
         messages: [],
         channel: null,
@@ -76,19 +65,27 @@ const useChatStore = create<ChatStoreState>((set, get) => {
             mode: InputMode.Base,
         },
         setAuthorData: (author) => set((state) => ({ authorData: author })),
+
         setChannelData: (channel) => {
-            set((state) => {
-                if (state.channel !== null && state.messages.length > 0) {
-                    messagesCache[state.channel.id] = state.messages;
-                }
-                const cache =
-                    messagesCache && channel.id in messagesCache
-                        ? messagesCache[channel.id]
-                        : undefined;
-                return { channel: channel, messages: cache ?? [] };
+            saveCurrentMessagesToCache();
+            set({
+                channel,
+                messages: loadMessagesFromCache(channel.id),
             });
         },
-        setEditMesssage: (id) => {},
+
+        setEditMesssage: (id) => {
+            const message = get().messages.find((m) => m.id === id);
+            if (!message) return;
+
+            set({
+                inputState: {
+                    text: message.text,
+                    mode: InputMode.Edit,
+                    messageId: id,
+                },
+            });
+        },
         deleteMessage: (id) =>
             set((state) => ({
                 messages: state.messages.filter((msg) => msg.id !== id),
@@ -101,7 +98,7 @@ const useChatStore = create<ChatStoreState>((set, get) => {
                 },
             }));
         },
-        reset: () => {
+        resetInput: () => {
             set((state) => ({
                 inputState: {
                     text: "",
@@ -126,7 +123,7 @@ const useChatStore = create<ChatStoreState>((set, get) => {
                     break;
                 }
             }
-            get().reset();
+            get().resetInput();
         },
     };
 });

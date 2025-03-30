@@ -60,6 +60,31 @@ class TestModels {
         return this._dm;
     }
 
+    dms(n: number): DM[] {
+        const testDms = [];
+
+        for (let i = 0; i < n; i++) {
+            let copy = { ...this._dm };
+            copy.id = i;
+            testDms.push(copy);
+            console.log(i);
+        }
+
+        return testDms;
+    }
+
+    guilds(n: number): Guild[] {
+        const guilds = [];
+        for (let i = 0; i < n; i++) {
+            let copy = { ...this._guild };
+            copy.id = i;
+            guilds.push(copy);
+            console.log(i);
+        }
+
+        return guilds;
+    }
+
     get message(): Message {
         return this._message;
     }

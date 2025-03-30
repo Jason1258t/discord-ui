@@ -7,32 +7,8 @@ import Wampus from "./components/wampus/wampus";
 import useChatStore from "zustand/chat/chatStore";
 
 const models = new TestModels();
-const testGuild = models.guild;
-const testdm = models.dm;
-const testGuilds = [
-    testGuild,
-    testGuild,
-    testGuild,
-    testGuild,
-    testGuild,
-    testGuild,
-    testGuild,
-    testGuild,
-    testGuild,
-    testGuild,
-    testGuild,
-    testGuild,
-    testGuild,
-];
-
-const testDms = [testdm, testdm, testdm, testdm, testdm, testdm];
-
-for (let i = 0; i < testDms.length; i++) {
-    let copy = { ...testDms[i] };
-    copy.id = i;
-    testDms[i] = copy;
-    console.log(i);
-}
+const testGuilds = models.guilds(8);
+const testDms = models.dms(8);
 
 const HomePage = () => {
     const [currentChatId, setCurrentChatId] = useState(-1);
