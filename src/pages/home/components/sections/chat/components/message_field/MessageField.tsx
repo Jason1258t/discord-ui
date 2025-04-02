@@ -3,6 +3,8 @@ import styles from "./MessageField.module.css";
 import useChatStore from "zustand/chat/chatStore";
 import { ReferenceContainer } from "./message_reference/ReferenceContainer";
 import { useEffect, useRef } from "react";
+import Row from "components/wrappers/row";
+import { ReactComponent as Paperclip } from "./paper-clip.svg";
 
 const MessageField = () => {
     const { onTextChanged, onConfirm, inputState } = useChatStore();
@@ -19,7 +21,7 @@ const MessageField = () => {
     const handleKeyDown = (event: React.KeyboardEvent) => {
         if (event.key === "Enter" && !event.shiftKey) {
             event.preventDefault(); // Предотвращаем перенос строки
-            onConfirm(); 
+            onConfirm();
         }
     };
 
@@ -31,18 +33,20 @@ const MessageField = () => {
             }}
         >
             {inputState.mode !== InputMode.Base && <ReferenceContainer />}
-            <textarea
-                ref={textareaRef}
-                className={`${styles.messageField} ${
-                    inputState.mode !== InputMode.Base && styles.withRef
-                }`}
-                value={inputState.text}
-                placeholder="Type message here"
-                autoFocus={true}
-                onKeyDown={handleKeyDown}
-                onChange={(event) => onTextChanged(event.target.value)}
-                rows={1} // Начальное количество строк
-            />
+
+            <Row styles={{ alignItems: "start" }}>
+                <Paperclip className={styles.attachButton} />
+                <textarea
+                    ref={textareaRef}
+                    className={styles.messageField}
+                    value={inputState.text}
+                    placeholder="Type message here"
+                    autoFocus={true}
+                    onKeyDown={handleKeyDown}
+                    onChange={(event) => onTextChanged(event.target.value)}
+                    rows={1} // Начальное количество строк
+                />
+            </Row>
         </form>
     );
 };

@@ -96,7 +96,7 @@ const Message = ({
                 style={showInfo ? {} : { minHeight: 0 }}
             >
                 {showInfo && senderInfo}
-                <p className={styles.text}>{data.text}</p>
+                <pre className={styles.text}>{data.text}</pre>
             </div>
             {isHover && (
                 <FastActionsMenu
