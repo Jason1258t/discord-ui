@@ -2,10 +2,10 @@ import React, { ComponentProps } from "react";
 import FastAction from "./FastAction";
 import styles from "./FastActions.module.css";
 
-import pencil from "../src/pencil.svg";
-import arrowRight from "../src/arrow-uturn-right.svg";
-import arrowLeft from "../src/arrow-uturn-left.svg";
-import more from "../src/elipsis-horizontal.svg";
+import pencil from "assets/icons/pencil.svg";
+import arrowRight from "assets/icons/arrow-uturn-right.svg";
+import arrowLeft from "assets/icons/arrow-uturn-left.svg";
+import more from "assets/icons/elipsis-horizontal.svg";
 import MessageActionsMenu from "../actions_overlay/MessageActionsMenu";
 
 type WithouPosProps = Omit<

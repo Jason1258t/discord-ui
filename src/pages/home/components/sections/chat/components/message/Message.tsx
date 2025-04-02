@@ -15,13 +15,11 @@ const Message = ({
     data,
     showInfo,
     owned = true,
-    onMsgReply = undefined,
     onMsgForward = undefined,
 }: {
     data: MessageData;
     showInfo: boolean;
     owned?: boolean;
-    onMsgReply?: ((id: number) => void) | undefined;
     onMsgForward?: ((id: number) => void) | undefined;
 }) => {
     const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
@@ -49,11 +47,11 @@ const Message = ({
         });
     };
 
-    const { deleteMessage, setEditMesssage } = useChatStore();
+    const { deleteMessage, setEditMesssage, setReplyMessage } = useChatStore();
 
     const onDelete = () => deleteMessage(data.id);
     const onEdit = () => setEditMesssage(data.id);
-    const onReply = () => onMsgReply?.(data.id);
+    const onReply = () => setReplyMessage(data.id);
     const onForward = () => onMsgForward?.(data.id);
 
     const baseActions = {

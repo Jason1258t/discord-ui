@@ -3,17 +3,13 @@ import formatDate from "utils/formatDate";
 import { MessageGroup as MessageGroupData } from "models/messageGroup";
 
 const MessagesGroup = ({ group }: { group: MessageGroupData }) => {
-    const messages = group.messages;
-    console.log(group);
-    const groupTitle = group.showDate && (
-        <Title info={formatDate(group.messages[0].createdAt)} />
-    );
-    console.log(groupTitle);
     return (
         <div style={{ marginBottom: 8 }} key={group.id}>
-            {groupTitle}
-            <Message data={messages[0]} showInfo={true} />
-            {messages.slice(1).map((e) => (
+            {group.showDate && (
+                <Title info={formatDate(group.messages[0].createdAt)} />
+            )}
+            <Message data={group.messages[0]} showInfo={true} />
+            {group.messages.slice(1).map((e) => (
                 <Message data={e} showInfo={false} />
             ))}
         </div>

@@ -1,0 +1,41 @@
+.refContaier {
+    display: flex;
+    max-width: 100%;
+    align-items: center;
+    height: 60px;
+    padding: 0 16px;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.refContaier p {
+    margin: 0;
+}
+
+.refContent {
+    flex: 1;
+    margin: 0 8px;
+    color: #b6bac0;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.refTitle {
+    font-size: 14px;
+}
+
+.refMsgText {
+    font-size: 12px;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+    max-width: 100%;
+}
+
+.closeRef {
+    cursor: pointer;
+}
+
+.imgOnBcg {
+    filter: brightness(0) saturate(100%) invert(89%) sepia(9%) saturate(159%)
+        hue-rotate(177deg) brightness(83%) contrast(89%);
+}

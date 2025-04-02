@@ -39,7 +39,7 @@ const useChatStore = create<ChatStoreState>((set, get) => {
         set({
             messages: messages.map((msg) =>
                 msg.id === editState.messageId
-                    ? { ...msg, text: inputState.text }
+                    ? { ...msg, text: inputState.text, createdAt: new Date() }
                     : msg
             ),
         });
@@ -68,6 +68,7 @@ const useChatStore = create<ChatStoreState>((set, get) => {
 
         setChannelData: (channel) => {
             saveCurrentMessagesToCache();
+            get().resetInput();
             set({
                 channel,
                 messages: loadMessagesFromCache(channel.id),
@@ -86,6 +87,29 @@ const useChatStore = create<ChatStoreState>((set, get) => {
                 },
             });
         },
+
+        setReplyMessage: (id) => {
+            const message = get().messages.find((m) => m.id === id);
+            if (!message) return;
+
+            set((state) => ({
+                inputState: {
+                    text: state.inputState.text,
+                    mode: InputMode.Reply,
+                    messageId: id,
+                },
+            }));
+        },
+
+        cancelEdit: () => get().resetInput(),
+        cancelReply: () => {
+            set((state) => ({
+                inputState: {
+                    mode: InputMode.Base,
+                    text: state.inputState.text,
+                },
+            }));
+        },
         deleteMessage: (id) =>
             set((state) => ({
                 messages: state.messages.filter((msg) => msg.id !== id),
@@ -99,16 +123,17 @@ const useChatStore = create<ChatStoreState>((set, get) => {
             }));
         },
         resetInput: () => {
-            set((state) => ({
+            set({
                 inputState: {
                     text: "",
                     mode: InputMode.Base,
                 },
-            }));
+            });
         },
 
         onConfirm: () => {
             const { inputState } = get();
+            if (!inputState.text.trim()) return;
             switch (inputState.mode) {
                 case InputMode.Base: {
                     sendMessage();

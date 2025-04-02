@@ -17,7 +17,8 @@
     "paths": {
       "@components/*": ["components/*"],
       "@utils/*": ["utils/*"],
-      "@models/*": ["models/*"]
+      "@models/*": ["models/*"],
+      "@assets/*": ["assets/*"]
     },
     "lib": [
       "dom",

@@ -4,11 +4,11 @@ import Action from "./Action";
 
 import useTapOutside from "hooks/useTapOutside";
 
-import pencil from "../src/pencil.svg";
-import arrowRight from "../src/arrow-uturn-right.svg";
-import arrowLeft from "../src/arrow-uturn-left.svg";
-import trash from "../src/trash.svg";
-import copy from "../src/copy.svg";
+import pencil from "assets/icons/pencil.svg";
+import arrowRight from "assets/icons/arrow-uturn-right.svg";
+import arrowLeft from "assets/icons/arrow-uturn-left.svg";
+import trash from "assets/icons/trash.svg";
+import copy from "assets/icons/copy.svg";
 
 const MessageActionsMenu = ({
     positionProperties,

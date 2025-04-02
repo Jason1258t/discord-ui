@@ -1,9 +1,8 @@
 .msgwrapper {
     display: flex;
-    flex-direction: row;
     transition: background-color 200ms linear;
     padding: 2px;
-    align-items: center;
+    align-items: start;
     max-width: 100%;
     position: relative;
 }
@@ -24,6 +23,7 @@
     max-width: 100%;
     color: #d9d9d9;
     margin: 0;
+    word-break: break-all;
 }
 
 .username {
@@ -46,4 +46,3 @@
     flex-direction: column;
     justify-content: space-between;
 }
-
