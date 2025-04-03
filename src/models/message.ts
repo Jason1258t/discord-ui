@@ -7,4 +7,5 @@ export interface Message {
     author: User;
     channel: Channel;
     createdAt: Date;
+    replyTo?: Message | undefined;
 }

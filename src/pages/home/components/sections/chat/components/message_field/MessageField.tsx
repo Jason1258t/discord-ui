@@ -4,7 +4,7 @@ import useChatStore from "zustand/chat/chatStore";
 import { ReferenceContainer } from "./message_reference/ReferenceContainer";
 import { useEffect, useRef } from "react";
 import Row from "components/wrappers/row";
-import { ReactComponent as Paperclip } from "./paper-clip.svg";
+import { ReactComponent as Paperclip } from "assets/icons/paper-clip.svg";
 
 const MessageField = () => {
     const { onTextChanged, onConfirm, inputState } = useChatStore();

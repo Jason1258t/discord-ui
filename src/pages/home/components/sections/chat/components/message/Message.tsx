@@ -10,18 +10,32 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import FastActionsMenu from "./fast_actions/FastActionsMenu";
 import useChatStore from "zustand/chat/chatStore";
+import { ReactComponent as ReplyArrow } from "assets/icons/arrow-uturn-left.svg";
+import { InputReplyState } from "zustand/chat/inputState";
+
+export const ReplyContainer = ({ msg }: { msg: MessageData }) => {
+    return (
+        <div className={styles.replyContainer}>
+            <ReplyArrow className={styles.replyArrow}/>
+            <img src={msg.author.avatar} className={styles.replyAvatar} />
+            <p className={styles.replyAuthorName}>{msg.author.displayName}</p>
+            <p className={styles.replyContent}>{msg.text}</p>
+        </div>
+    );
+};
 
 const Message = ({
     data,
     showInfo,
     owned = true,
-    onMsgForward = undefined,
 }: {
     data: MessageData;
     showInfo: boolean;
     owned?: boolean;
-    onMsgForward?: ((id: number) => void) | undefined;
 }) => {
+    const replied = data.replyTo !== undefined;
+    console.log(data);
+    showInfo = showInfo || replied;
     const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
     const [isHover, bind] = useHover({
         onChange: (v) => {
@@ -52,7 +66,9 @@ const Message = ({
     const onDelete = () => deleteMessage(data.id);
     const onEdit = () => setEditMesssage(data.id);
     const onReply = () => setReplyMessage(data.id);
-    const onForward = () => onMsgForward?.(data.id);
+    const onForward = () => {
+        console.log("forward this shit");
+    };
 
     const baseActions = {
         onEdit,
@@ -67,58 +83,61 @@ const Message = ({
     };
 
     return (
-        <div
-            className={styles.msgwrapper}
-            {...bind}
-            onContextMenu={handleContextMenu}
-            onClick={closeMenu}
-        >
-            {showInfo ? (
-                <img
-                    src={data.author.avatar}
-                    className={styles.avatar}
-                    alt="avatar"
-                />
-            ) : (
-                <div
-                    className={styles.date}
-                    style={{
-                        margin: "0 10px",
-                        flex: "0 0 40px",
-                    }}
-                >
-                    {isHover && formatDateTime(data.createdAt, true)}
-                </div>
-            )}
-
+        <div>
+            {replied && <ReplyContainer msg={data.replyTo!} />}
             <div
-                className={styles.contentWrapper}
-                style={showInfo ? {} : { minHeight: 0 }}
+                className={styles.msgwrapper}
+                {...bind}
+                onContextMenu={handleContextMenu}
+                onClick={closeMenu}
             >
-                {showInfo && senderInfo}
-                <pre className={styles.text}>{data.text}</pre>
+                {showInfo ? (
+                    <img
+                        src={data.author.avatar}
+                        className={styles.avatar}
+                        alt="avatar"
+                    />
+                ) : (
+                    <div
+                        className={styles.date}
+                        style={{
+                            margin: "0 10px",
+                            flex: "0 0 40px",
+                        }}
+                    >
+                        {isHover && formatDateTime(data.createdAt, true)}
+                    </div>
+                )}
+
+                <div
+                    className={styles.contentWrapper}
+                    style={showInfo ? {} : { minHeight: 0 }}
+                >
+                    {showInfo && senderInfo}
+                    <pre className={styles.text}>{data.text}</pre>
+                </div>
+                {isHover && (
+                    <FastActionsMenu
+                        onExtend={() => setMenuOpen(!isMenuOpen)}
+                        owned={owned}
+                        isMenuOpen={isMenuOpen}
+                        {...baseActions}
+                        menuProps={menuProps}
+                    />
+                )}
+                {position && (
+                    <MessageActionsMenu
+                        onTapOutside={() => closeMenu()}
+                        positionProperties={{
+                            left: position?.x,
+                            top: position?.y,
+                            position: "fixed",
+                            zIndex: 10000,
+                        }}
+                        {...menuProps}
+                    />
+                )}
             </div>
-            {isHover && (
-                <FastActionsMenu
-                    onExtend={() => setMenuOpen(!isMenuOpen)}
-                    owned={owned}
-                    isMenuOpen={isMenuOpen}
-                    {...baseActions}
-                    menuProps={menuProps}
-                />
-            )}
-            {position && (
-                <MessageActionsMenu
-                    onTapOutside={() => closeMenu()}
-                    positionProperties={{
-                        left: position?.x,
-                        top: position?.y,
-                        position: "fixed",
-                        zIndex: 10000,
-                    }}
-                    {...menuProps}
-                />
-            )}
         </div>
     );
 };

@@ -7,7 +7,7 @@ import { MessagesCache } from "./messagesCache";
 const useChatStore = create<ChatStoreState>((set, get) => {
     const messagesCache: MessagesCache = {};
 
-    const sendMessage = () => {
+    const createNewMessage = () => {
         const { channel, authorData, inputState } = get();
         if (!channel || !authorData || !inputState.text.trim()) return;
 
@@ -24,8 +24,13 @@ const useChatStore = create<ChatStoreState>((set, get) => {
             createdAt: new Date(),
         };
 
+        return newMessage;
+    };
+
+    const sendMessage = (msg: Message) => {
+        msg.text = msg.text.trim();
         set((state) => ({
-            messages: [...state.messages, newMessage],
+            messages: [...state.messages, msg],
         }));
     };
 
@@ -136,7 +141,8 @@ const useChatStore = create<ChatStoreState>((set, get) => {
             if (!inputState.text.trim()) return;
             switch (inputState.mode) {
                 case InputMode.Base: {
-                    sendMessage();
+                    const msg = createNewMessage();
+                    if (msg) sendMessage(msg);
                     break;
                 }
                 case InputMode.Edit: {
@@ -144,7 +150,13 @@ const useChatStore = create<ChatStoreState>((set, get) => {
                     break;
                 }
                 case InputMode.Reply: {
-                    console.log("reply message");
+                    const msg = createNewMessage();
+                    if (msg) {
+                        msg.replyTo = get().messages.find(
+                            (e) => e.id === inputState.messageId
+                        )!;
+                        sendMessage(msg);
+                    }
                     break;
                 }
             }
