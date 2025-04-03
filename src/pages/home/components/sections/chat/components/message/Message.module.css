@@ -48,6 +48,7 @@
 }
 
 .replyContainer {
+    margin-top: 16px;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.2);
     padding: 8px;

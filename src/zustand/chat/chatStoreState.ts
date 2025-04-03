@@ -6,6 +6,8 @@ import { InputState } from "./inputState";
 export interface ChatStoreActions {
     setEditMesssage: (id: number) => void;
     setReplyMessage: (id: number) => void;
+    editLastMessage: () => void;
+    replyLast: () => void;
     cancelEdit: () => void;
     cancelReply: () => void;
     deleteMessage: (id: number) => void;

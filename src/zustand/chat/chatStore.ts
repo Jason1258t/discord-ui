@@ -34,6 +34,14 @@ const useChatStore = create<ChatStoreState>((set, get) => {
         }));
     };
 
+    const replyMessage = (msgId: number) => {
+        const msg = createNewMessage();
+        if (msg) {
+            msg.replyTo = get().messages.find((e) => e.id === msgId)!;
+            sendMessage(msg);
+        }
+    };
+
     const editMessage = () => {
         const { inputState, messages } = get();
 
@@ -69,8 +77,19 @@ const useChatStore = create<ChatStoreState>((set, get) => {
             text: "",
             mode: InputMode.Base,
         },
-        setAuthorData: (author) => set((state) => ({ authorData: author })),
-
+        setAuthorData: (author) => set({ authorData: author }),
+        replyLast: () => {
+            get().setReplyMessage(get().messages[get().messages.length - 1].id);
+        },
+        editLastMessage: () => {
+            const { messages, setEditMesssage, authorData } = get();
+            const message = [...messages]
+                .reverse()
+                .find((e) => e.author.id === authorData?.id);
+            if (message) {
+                setEditMesssage(message.id);
+            }
+        },
         setChannelData: (channel) => {
             saveCurrentMessagesToCache();
             get().resetInput();
@@ -96,7 +115,7 @@ const useChatStore = create<ChatStoreState>((set, get) => {
         setReplyMessage: (id) => {
             const message = get().messages.find((m) => m.id === id);
             if (!message) return;
-
+            console.log(get().inputState);
             set((state) => ({
                 inputState: {
                     text: state.inputState.text,
@@ -104,6 +123,7 @@ const useChatStore = create<ChatStoreState>((set, get) => {
                     messageId: id,
                 },
             }));
+            console.log(get().inputState);
         },
 
         cancelEdit: () => get().resetInput(),
@@ -137,7 +157,7 @@ const useChatStore = create<ChatStoreState>((set, get) => {
         },
 
         onConfirm: () => {
-            const { inputState } = get();
+            const { inputState, messages } = get();
             if (!inputState.text.trim()) return;
             switch (inputState.mode) {
                 case InputMode.Base: {
@@ -150,13 +170,7 @@ const useChatStore = create<ChatStoreState>((set, get) => {
                     break;
                 }
                 case InputMode.Reply: {
-                    const msg = createNewMessage();
-                    if (msg) {
-                        msg.replyTo = get().messages.find(
-                            (e) => e.id === inputState.messageId
-                        )!;
-                        sendMessage(msg);
-                    }
+                    replyMessage(inputState.messageId);
                     break;
                 }
             }
