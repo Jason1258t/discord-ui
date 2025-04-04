@@ -8,15 +8,15 @@ import useChatStore from "zustand/chat/chatStore";
 
 const models = new TestModels();
 const testGuilds = models.guilds(8);
-const testDms = models.dms(8);
 
 const HomePage = () => {
     const [currentChatId, setCurrentChatId] = useState(-1);
     const { setAuthorData, setChannelData } = useChatStore();
+    const { dms } = useChatStore();
 
     const setChannel = (id: number) => {
         if (id !== -1) {
-            setChannelData(testDms.find((e) => e.id === id)!);
+            setChannelData(dms.find((e) => e.id === id)!);
         }
         setCurrentChatId(id);
     };
@@ -32,7 +32,7 @@ const HomePage = () => {
                 goHome={() => setChannel(-1)}
             />
             <DmChannelsSection
-                dms={testDms}
+                dms={dms}
                 onClick={setChannel}
                 currentChat={currentChatId}
             />

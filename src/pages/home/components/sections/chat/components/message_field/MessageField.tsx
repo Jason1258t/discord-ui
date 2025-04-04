@@ -6,19 +6,8 @@ import { useEffect, useRef } from "react";
 import Row from "components/wrappers/row";
 import { ReactComponent as Paperclip } from "assets/icons/paper-clip.svg";
 
-const MessageField = ({
-    ref,
-}: {
-    ref: React.RefObject<HTMLTextAreaElement | null>;
-}) => {
-    const {
-        onTextChanged,
-        onConfirm,
-        inputState,
-        editLastMessage,
-        replyLast,
-        resetInput,
-    } = useChatStore();
+const MessageField = () => {
+    const { onTextChanged, onConfirm, inputState } = useChatStore();
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     // Автоматическое изменение высоты textarea при изменении содержимого
@@ -31,24 +20,8 @@ const MessageField = ({
 
     const handleKeyDown = (event: React.KeyboardEvent) => {
         if (event.key === "Enter" && !event.shiftKey) {
-            event.preventDefault(); // Предотвращаем перенос строки
+            event.preventDefault();
             onConfirm();
-        }
-        if (
-            event.key === "ArrowUp" &&
-            !event.shiftKey &&
-            inputState.text === "" &&
-            !event.metaKey
-        ) {
-            event.preventDefault();
-            editLastMessage();
-        }
-        if (event.key === "ArrowUp" && !event.shiftKey && event.metaKey) {
-            event.preventDefault();
-            replyLast();
-        }
-        if (event.key === "Escape" && inputState.mode !== InputMode.Base) {
-            resetInput();
         }
     };
 

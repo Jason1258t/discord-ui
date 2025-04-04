@@ -3,6 +3,7 @@ import { create } from "zustand";
 import { InputMode, InputEditState } from "./inputState";
 import { ChatStoreState } from "./chatStoreState";
 import { MessagesCache } from "./messagesCache";
+import { TestModels } from "models/models";
 
 const useChatStore = create<ChatStoreState>((set, get) => {
     const messagesCache: MessagesCache = {};
@@ -17,6 +18,7 @@ const useChatStore = create<ChatStoreState>((set, get) => {
         );
 
         const newMessage: Message = {
+            owned: true,
             id: lastId + 1,
             text: inputState.text,
             channel,
@@ -71,6 +73,7 @@ const useChatStore = create<ChatStoreState>((set, get) => {
 
     return {
         messages: [],
+        dms: new TestModels().dms(8), // TODO temporary
         channel: null,
         authorData: null,
         inputState: {
@@ -78,7 +81,16 @@ const useChatStore = create<ChatStoreState>((set, get) => {
             mode: InputMode.Base,
         },
         setAuthorData: (author) => set({ authorData: author }),
-        replyLast: () => {
+        loadDms: () => {
+            // TODO implement loading
+        },
+        loadCurrentChatMessages: () => {
+            const channel = get().channel;
+            if (!channel) return;
+            set({ messages: loadMessagesFromCache(get().channel!.id) });
+            // TODO implement remote loading
+        },
+        replyLastMessage: () => {
             get().setReplyMessage(get().messages[get().messages.length - 1].id);
         },
         editLastMessage: () => {
@@ -157,7 +169,7 @@ const useChatStore = create<ChatStoreState>((set, get) => {
         },
 
         onConfirm: () => {
-            const { inputState, messages } = get();
+            const { inputState } = get();
             if (!inputState.text.trim()) return;
             switch (inputState.mode) {
                 case InputMode.Base: {

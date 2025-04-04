@@ -38,6 +38,7 @@ class TestModels {
             author: this.user,
             channel: this.dm,
             createdAt: new Date(2000, 11, 12),
+            owned: true,
         };
 
         this._dm = {

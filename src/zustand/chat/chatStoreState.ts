@@ -2,24 +2,33 @@ import { Channel } from "@models/channel/channel";
 import { Message } from "@models/message";
 import { User } from "@models/user";
 import { InputState } from "./inputState";
+import { DMChannel } from "@models/channel/dm_channel";
 
 export interface ChatStoreActions {
+    setAuthorData: (author: User) => void;
+    setChannelData: (channel: Channel) => void;
+    loadCurrentChatMessages: () => void;
+
+    loadDms: () => void;
+
     setEditMesssage: (id: number) => void;
-    setReplyMessage: (id: number) => void;
     editLastMessage: () => void;
-    replyLast: () => void;
     cancelEdit: () => void;
+
+    setReplyMessage: (id: number) => void;
+    replyLastMessage: () => void;
     cancelReply: () => void;
+
     deleteMessage: (id: number) => void;
+
     onTextChanged: (text: string) => void;
     onConfirm: () => void;
     resetInput: () => void;
-    setAuthorData: (author: User) => void;
-    setChannelData: (channel: Channel) => void;
 }
 
 export interface ChatStoreState extends ChatStoreActions {
     messages: Message[];
+    dms: DMChannel[]; // move out of here
     inputState: InputState;
     channel: Channel | null;
     authorData: User | null;

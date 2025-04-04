@@ -4,18 +4,17 @@ import MessagesList from "./components/messages_list/MessagesList";
 import DMHeader from "./components/header/DmHeader";
 import { DMChannel } from "@models/channel/dm_channel";
 import useChatStore from "zustand/chat/chatStore";
-import { useRef } from "react";
+import { useKeyboardShortcuts } from "./components/message_field/useKeyboardShortcuts";
 
 const Chat = () => {
     const { channel } = useChatStore();
-    const inputRef = useRef<HTMLTextAreaElement>(null);
-
+    const { handleKeyDown } = useKeyboardShortcuts();
 
     return (
-        <div className={styles.chat}>
+        <div className={styles.chat} onKeyDown={handleKeyDown}>
             <DMHeader data={channel as DMChannel} />
             <MessagesList />
-            <MessageField ref={inputRef} />
+            <MessageField />
         </div>
     );
 };

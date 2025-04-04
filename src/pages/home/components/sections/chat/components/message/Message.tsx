@@ -1,37 +1,25 @@
 import styles from "./Message.module.css";
+
 import formatDateTime from "utils/formatDateTime";
 import useHover from "hooks/useHover";
 import useContextMenu from "hooks/useContextMenu";
+import useChatStore from "zustand/chat/chatStore";
+
 import { useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { Message as MessageData } from "@models/message";
 import MessageActionsMenu from "./actions_overlay/MessageActionsMenu";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import FastActionsMenu from "./fast_actions/FastActionsMenu";
-import useChatStore from "zustand/chat/chatStore";
-import { ReactComponent as ReplyArrow } from "assets/icons/arrow-uturn-left.svg";
-import { InputReplyState } from "zustand/chat/inputState";
-
-export const ReplyContainer = ({ msg }: { msg: MessageData }) => {
-    return (
-        <div className={styles.replyContainer}>
-            <ReplyArrow className={styles.replyArrow}/>
-            <img src={msg.author.avatar} className={styles.replyAvatar} />
-            <p className={styles.replyAuthorName}>{msg.author.displayName}</p>
-            <p className={styles.replyContent}>{msg.text}</p>
-        </div>
-    );
-};
+import ReplyContainer from "./reply_container/ReplyContainer";
 
 const Message = ({
     data,
     showInfo,
-    owned = true,
 }: {
     data: MessageData;
     showInfo: boolean;
-    owned?: boolean;
 }) => {
     const replied = data.replyTo !== undefined;
     console.log(data);
@@ -119,7 +107,7 @@ const Message = ({
                 {isHover && (
                     <FastActionsMenu
                         onExtend={() => setMenuOpen(!isMenuOpen)}
-                        owned={owned}
+                        owned={data.owned}
                         isMenuOpen={isMenuOpen}
                         {...baseActions}
                         menuProps={menuProps}
