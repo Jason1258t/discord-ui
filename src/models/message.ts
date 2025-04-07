@@ -1,5 +1,6 @@
 import { User } from "./user";
 import { Channel } from "./channel/channel";
+import { Attachment } from "./attachment";
 
 export interface Message {
     owned: boolean;
@@ -9,4 +10,5 @@ export interface Message {
     channel: Channel;
     createdAt: Date;
     replyTo?: Message | undefined;
+    attachments?: Attachment[] | undefined;
 }

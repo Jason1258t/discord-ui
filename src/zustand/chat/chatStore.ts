@@ -68,12 +68,16 @@ const useChatStore = create<ChatStoreState>((set, get) => {
     };
 
     const loadMessagesFromCache = (channelId: number): Message[] => {
-        return messagesCache[channelId] ?? [];
+        const msg = testModels.message;
+        msg.attachments = testModels.getAttachments(3, 0);
+        return messagesCache[channelId] ?? [msg];
     };
+
+    const testModels = new TestModels();
 
     return {
         messages: [],
-        dms: new TestModels().dms(8), // TODO temporary
+        dms: testModels.dms(8), // TODO: temporary
         channel: null,
         authorData: null,
         inputState: {
@@ -82,13 +86,13 @@ const useChatStore = create<ChatStoreState>((set, get) => {
         },
         setAuthorData: (author) => set({ authorData: author }),
         loadDms: () => {
-            // TODO implement loading
+            // TODO: implement loading
         },
         loadCurrentChatMessages: () => {
             const channel = get().channel;
             if (!channel) return;
             set({ messages: loadMessagesFromCache(get().channel!.id) });
-            // TODO implement remote loading
+            // TODO: implement remote loading
         },
         replyLastMessage: () => {
             get().setReplyMessage(get().messages[get().messages.length - 1].id);

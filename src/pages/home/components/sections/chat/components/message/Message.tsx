@@ -13,6 +13,7 @@ import { Message as MessageData } from "@models/message";
 import MessageActionsMenu from "./actions_overlay/MessageActionsMenu";
 import FastActionsMenu from "./fast_actions/FastActionsMenu";
 import ReplyContainer from "./reply_container/ReplyContainer";
+import AttachmentGrid from "./attachments/AttachmentsGrid";
 
 const Message = ({
     data,
@@ -103,6 +104,9 @@ const Message = ({
                 >
                     {showInfo && senderInfo}
                     <pre className={styles.text}>{data.text}</pre>
+                    {data.attachments && (
+                        <AttachmentGrid attachments={data.attachments} />
+                    )}
                 </div>
                 {isHover && (
                     <FastActionsMenu
