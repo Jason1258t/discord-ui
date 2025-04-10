@@ -3,6 +3,7 @@ import { Message } from "@models/message";
 import { User } from "@models/user";
 import { InputState } from "./inputState";
 import { DMChannel } from "@models/channel/dm_channel";
+import { AttachmentsSlice } from "./attachmentsSlice";
 
 export interface ChatStoreActions {
     setAuthorData: (author: User) => void;
@@ -11,7 +12,7 @@ export interface ChatStoreActions {
 
     loadDms: () => void;
 
-    setEditMesssage: (id: number) => void;
+    setEditMessage: (id: number) => void;
     editLastMessage: () => void;
     cancelEdit: () => void;
 
@@ -26,7 +27,7 @@ export interface ChatStoreActions {
     resetInput: () => void;
 }
 
-export interface ChatStoreState extends ChatStoreActions {
+export interface ChatStoreState extends ChatStoreActions, AttachmentsSlice {
     messages: Message[];
     dms: DMChannel[]; // move out of here
     inputState: InputState;

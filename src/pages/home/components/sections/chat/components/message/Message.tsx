@@ -50,7 +50,11 @@ const Message = ({
         });
     };
 
-    const { deleteMessage, setEditMesssage, setReplyMessage } = useChatStore();
+    const {
+        deleteMessage,
+        setEditMessage: setEditMesssage,
+        setReplyMessage,
+    } = useChatStore();
 
     const onDelete = () => deleteMessage(data.id);
     const onEdit = () => setEditMesssage(data.id);

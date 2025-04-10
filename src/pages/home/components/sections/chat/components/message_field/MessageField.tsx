@@ -5,6 +5,7 @@ import { ReferenceContainer } from "./message_reference/ReferenceContainer";
 import { useEffect, useRef } from "react";
 import Row from "components/wrappers/row";
 import { ReactComponent as Paperclip } from "assets/icons/paper-clip.svg";
+import AttachmentsPanel from "./attachments/AttachmentsPanel";
 
 const MessageField = () => {
     const { onTextChanged, onConfirm, inputState } = useChatStore();
@@ -33,7 +34,7 @@ const MessageField = () => {
             }}
         >
             {inputState.mode !== InputMode.Base && <ReferenceContainer />}
-
+            <AttachmentsPanel/>
             <Row styles={{ alignItems: "start" }}>
                 <Paperclip className={styles.attachButton} />
                 <textarea

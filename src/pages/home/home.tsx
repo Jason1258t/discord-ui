@@ -23,7 +23,7 @@ const HomePage = () => {
 
     useEffect(() => {
         setAuthorData(models.user);
-    }, []);
+    }, [setAuthorData]);
 
     return (
         <div style={{ display: "flex", width: "100vw", height: "100vh" }}>

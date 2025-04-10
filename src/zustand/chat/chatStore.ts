@@ -4,8 +4,9 @@ import { InputMode, InputEditState } from "./inputState";
 import { ChatStoreState } from "./chatStoreState";
 import { MessagesCache } from "./messagesCache";
 import { TestModels } from "models/models";
+import { createAttachmentsSlice } from "./attachmentsSlice";
 
-const useChatStore = create<ChatStoreState>((set, get) => {
+const useChatStore = create<ChatStoreState>((set, get, api) => {
     const messagesCache: MessagesCache = {};
 
     const createNewMessage = () => {
@@ -69,13 +70,14 @@ const useChatStore = create<ChatStoreState>((set, get) => {
 
     const loadMessagesFromCache = (channelId: number): Message[] => {
         const msg = testModels.message;
-        msg.attachments = testModels.getAttachments(3, 0);
+        msg.attachments = testModels.getAttachments(3, 3);
         return messagesCache[channelId] ?? [msg];
     };
 
     const testModels = new TestModels();
 
     return {
+        ...createAttachmentsSlice(set, get, api),
         messages: [],
         dms: testModels.dms(8), // TODO: temporary
         channel: null,
@@ -98,7 +100,11 @@ const useChatStore = create<ChatStoreState>((set, get) => {
             get().setReplyMessage(get().messages[get().messages.length - 1].id);
         },
         editLastMessage: () => {
-            const { messages, setEditMesssage, authorData } = get();
+            const {
+                messages,
+                setEditMessage: setEditMesssage,
+                authorData,
+            } = get();
             const message = [...messages]
                 .reverse()
                 .find((e) => e.author.id === authorData?.id);
@@ -115,7 +121,7 @@ const useChatStore = create<ChatStoreState>((set, get) => {
             });
         },
 
-        setEditMesssage: (id) => {
+        setEditMessage: (id) => {
             const message = get().messages.find((m) => m.id === id);
             if (!message) return;
 
