@@ -1,5 +1,6 @@
 import useChatStore from "zustand/chat/chatStore";
 import {InputMode} from "zustand/chat/inputState";
+import React from "react";
 
 export const useKeyboardShortcuts = () => {
     const {inputState, editLastMessage, replyLastMessage, resetInput, attachments, clearAttachments} =

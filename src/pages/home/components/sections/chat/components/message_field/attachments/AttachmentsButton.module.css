@@ -1,0 +1,15 @@
+.attachButton {
+    width: 46px;
+    height: 46px;
+    background: #24262a;
+    border: none;
+    cursor: pointer;
+    margin: 8px 4px 0;
+    padding: 10px;
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+
+.attachButton * {
+    filter: brightness(0) saturate(100%) invert(68%) sepia(0%) saturate(14%) hue-rotate(278deg) brightness(94%) contrast(92%);
+}
