@@ -1,17 +1,30 @@
-import { Message } from "@models/message";
-import { create } from "zustand";
-import { InputMode, InputEditState } from "./inputState";
-import { ChatStoreState } from "./chatStoreState";
-import { MessagesCache } from "./messagesCache";
-import { TestModels } from "models/models";
-import { createAttachmentsSlice } from "./attachmentsSlice";
+import {Message} from "@models/message";
+import {create} from "zustand";
+import {InputMode, InputEditState} from "./inputState";
+import {ChatStoreState} from "./chatStoreState";
+import {TestModels} from "models/models";
+import {createAttachmentsSlice, RawAttachment} from "./attachmentsSlice";
+import {createChatDataSlice} from "./chatDataSlice";
+import {Attachment} from "@models/attachment";
 
 const useChatStore = create<ChatStoreState>((set, get, api) => {
-    const messagesCache: MessagesCache = {};
+    function generateId(): number {
+        return Math.random();
+    }
+
+    function rawToTestAttachment(a: RawAttachment): Attachment {
+        return {
+            src: a.tempSrc,
+            id: generateId()
+        }
+    }
 
     const createNewMessage = () => {
-        const { channel, authorData, inputState } = get();
-        if (!channel || !authorData || !inputState.text.trim()) return;
+        const {channel, authorData, inputState, attachments} = get();
+        if (!channel || !authorData) return;
+        console.log(attachments, inputState, attachments.length === 0 && !inputState.text.trim());
+        if (attachments.length === 0 && !inputState.text.trim()) return;
+
 
         const lastId = get().messages.reduce(
             (max, msg) => Math.max(max, msg.id),
@@ -21,23 +34,25 @@ const useChatStore = create<ChatStoreState>((set, get, api) => {
         const newMessage: Message = {
             owned: true,
             id: lastId + 1,
-            text: inputState.text,
+            text: inputState.text.trim(),
             channel,
             author: authorData,
             createdAt: new Date(),
+            attachments: attachments.map(attachment => rawToTestAttachment(attachment)),
         };
 
         return newMessage;
     };
 
     const sendMessage = (msg: Message) => {
-        msg.text = msg.text.trim();
         set((state) => ({
             messages: [...state.messages, msg],
         }));
     };
 
     const replyMessage = (msgId: number) => {
+        const {inputState, attachments} = get();
+        if (inputState.mode !== InputMode.Reply || (!inputState.text.trim() && attachments.length === 0)) return;
         const msg = createNewMessage();
         if (msg) {
             msg.replyTo = get().messages.find((e) => e.id === msgId)!;
@@ -46,54 +61,38 @@ const useChatStore = create<ChatStoreState>((set, get, api) => {
     };
 
     const editMessage = () => {
-        const { inputState, messages } = get();
+        const {inputState, messages} = get();
 
-        if (inputState.mode !== InputMode.Edit) return;
+        if (inputState.mode !== InputMode.Edit || !inputState.text.trim()) return;
 
         const editState = inputState as InputEditState;
 
         set({
             messages: messages.map((msg) =>
                 msg.id === editState.messageId
-                    ? { ...msg, text: inputState.text, createdAt: new Date() }
+                    ? {...msg, text: inputState.text, createdAt: new Date()}
                     : msg
             ),
         });
-    };
-
-    const saveCurrentMessagesToCache = () => {
-        const { channel, messages } = get();
-        if (channel && messages.length > 0) {
-            messagesCache[channel.id] = messages;
-        }
-    };
-
-    const loadMessagesFromCache = (channelId: number): Message[] => {
-        const msg = testModels.message;
-        msg.attachments = testModels.getAttachments(3, 3);
-        return messagesCache[channelId] ?? [msg];
     };
 
     const testModels = new TestModels();
 
     return {
         ...createAttachmentsSlice(set, get, api),
+        ...createChatDataSlice(set, get, api),
         messages: [],
         dms: testModels.dms(8), // TODO: temporary
-        channel: null,
-        authorData: null,
         inputState: {
             text: "",
             mode: InputMode.Base,
         },
-        setAuthorData: (author) => set({ authorData: author }),
         loadDms: () => {
             // TODO: implement loading
         },
         loadCurrentChatMessages: () => {
             const channel = get().channel;
             if (!channel) return;
-            set({ messages: loadMessagesFromCache(get().channel!.id) });
             // TODO: implement remote loading
         },
         replyLastMessage: () => {
@@ -102,23 +101,15 @@ const useChatStore = create<ChatStoreState>((set, get, api) => {
         editLastMessage: () => {
             const {
                 messages,
-                setEditMessage: setEditMesssage,
+                setEditMessage,
                 authorData,
             } = get();
             const message = [...messages]
                 .reverse()
                 .find((e) => e.author.id === authorData?.id);
             if (message) {
-                setEditMesssage(message.id);
+                setEditMessage(message.id);
             }
-        },
-        setChannelData: (channel) => {
-            saveCurrentMessagesToCache();
-            get().resetInput();
-            set({
-                channel,
-                messages: loadMessagesFromCache(channel.id),
-            });
         },
 
         setEditMessage: (id) => {
@@ -179,8 +170,7 @@ const useChatStore = create<ChatStoreState>((set, get, api) => {
         },
 
         onConfirm: () => {
-            const { inputState } = get();
-            if (!inputState.text.trim()) return;
+            const {inputState} = get();
             switch (inputState.mode) {
                 case InputMode.Base: {
                     const msg = createNewMessage();
@@ -197,6 +187,7 @@ const useChatStore = create<ChatStoreState>((set, get, api) => {
                 }
             }
             get().resetInput();
+            get().clearAttachments();
         },
     };
 });

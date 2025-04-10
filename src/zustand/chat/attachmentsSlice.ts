@@ -1,15 +1,17 @@
-import { ChatStoreState } from "./chatStoreState";
-import { SliceCreator } from "@utils/storeSlice";
+import {ChatStoreState} from "./chatStoreState";
+import {SliceCreator} from "@utils/storeSlice";
+import React from "react";
 
 export interface AttachmentsSlice {
     attachments: RawAttachment[];
     addAttachments: (files: File[]) => void;
-    onPaste: (e: ClipboardEvent) => void;
+    onPaste: (e: React.ClipboardEvent) => void;
     convertAttachments: () => void;
     removeAttachment: (ind: number) => void;
+    clearAttachments: () => void;
 }
 
-interface RawAttachment {
+export interface RawAttachment {
     tempSrc: string;
     file: File;
 }
@@ -26,7 +28,7 @@ export const createAttachmentsSlice: SliceCreator<
             const file = item.getAsFile();
             if (file) {
                 const imageUrl = URL.createObjectURL(file);
-                attachments.push({ tempSrc: imageUrl, file: file });
+                attachments.push({tempSrc: imageUrl, file: file});
             }
         });
         return attachments;
@@ -36,7 +38,7 @@ export const createAttachmentsSlice: SliceCreator<
         attachments: [],
         addAttachments: (files) => {
             const attachments: RawAttachment[] = files.map((e) => {
-                return { tempSrc: URL.createObjectURL(e), file: e };
+                return {tempSrc: URL.createObjectURL(e), file: e};
             });
             set((state) => ({
                 attachments: [...state.attachments, ...attachments],
@@ -54,11 +56,15 @@ export const createAttachmentsSlice: SliceCreator<
                 attachments: [...state.attachments, ...attachments],
             }));
         },
-        convertAttachments: () => {},
+        convertAttachments: () => {
+        },
         removeAttachment: (ind) => {
             const attachments = get().attachments;
             attachments.splice(ind, 1);
-            set({ attachments: attachments });
+            set({attachments: attachments});
+        },
+        clearAttachments: () => {
+            set({attachments: []});
         },
     };
 };

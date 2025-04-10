@@ -1,13 +1,17 @@
 import useChatStore from "zustand/chat/chatStore";
-import { InputMode } from "zustand/chat/inputState";
+import {InputMode} from "zustand/chat/inputState";
 
 export const useKeyboardShortcuts = () => {
-    const { inputState, editLastMessage, replyLastMessage, resetInput } =
+    const {inputState, editLastMessage, replyLastMessage, resetInput, attachments, clearAttachments} =
         useChatStore();
 
     const handleKeyDown = (event: React.KeyboardEvent) => {
         switch (event.key) {
             case "Escape": {
+                if (attachments.length > 0) {
+                    event.preventDefault();
+                    clearAttachments();
+                }
                 if (inputState.mode !== InputMode.Base) {
                     event.preventDefault();
                     resetInput();
@@ -27,5 +31,5 @@ export const useKeyboardShortcuts = () => {
         }
     };
 
-    return { handleKeyDown };
+    return {handleKeyDown};
 };

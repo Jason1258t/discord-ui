@@ -8,7 +8,7 @@ import { ReactComponent as Paperclip } from "assets/icons/paper-clip.svg";
 import AttachmentsPanel from "./attachments/AttachmentsPanel";
 
 const MessageField = () => {
-    const { onTextChanged, onConfirm, inputState } = useChatStore();
+    const { onTextChanged, onConfirm, inputState, attachments } = useChatStore();
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     // Автоматическое изменение высоты textarea при изменении содержимого
@@ -34,9 +34,9 @@ const MessageField = () => {
             }}
         >
             {inputState.mode !== InputMode.Base && <ReferenceContainer />}
-            <AttachmentsPanel/>
+            {(attachments.length > 0) && <AttachmentsPanel/>}
             <Row styles={{ alignItems: "start" }}>
-                <Paperclip className={styles.attachButton} />
+                <Paperclip className={styles.attachButton}/>
                 <textarea
                     ref={textareaRef}
                     className={styles.messageField}

@@ -4,4 +4,33 @@
     box-sizing: border-box;
     padding: 8px 16px;
     background-color: rgba(0, 0, 0, 0.2); /* Наложение цвета */
+    display: flex;
+    align-items: end;
+    overflow: scroll;
+}
+
+.attachment {
+    height: 180px;
+    width: 180px;
+    position: relative;
+    margin: 0 8px;
+    flex-shrink: 0;
+}
+
+.attachment img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.deleteButton {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    width: 24px;
+    height: 24px;
+    background-color: red;
+    border-radius: 50%;
+    cursor: pointer;
 }

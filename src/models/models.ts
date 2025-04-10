@@ -5,11 +5,11 @@ import { DMChannel as DM } from "./channel/dm_channel";
 import { Attachment } from "./attachment";
 
 class TestModels {
-    private _user: User;
-    private _guild: Guild;
-    private _message: Message;
-    private _dm: DM;
-    private _baseAttachments: Attachment[];
+    private readonly _user: User;
+    private readonly _guild: Guild;
+    private readonly _message: Message;
+    private readonly _dm: DM;
+    private readonly _baseAttachments: Attachment[];
 
     constructor() {
         this._baseAttachments = [

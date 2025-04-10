@@ -52,12 +52,12 @@ const Message = ({
 
     const {
         deleteMessage,
-        setEditMessage: setEditMesssage,
+        setEditMessage,
         setReplyMessage,
     } = useChatStore();
 
     const onDelete = () => deleteMessage(data.id);
-    const onEdit = () => setEditMesssage(data.id);
+    const onEdit = () => setEditMessage(data.id);
     const onReply = () => setReplyMessage(data.id);
     const onForward = () => {
         console.log("forward this shit");
