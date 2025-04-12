@@ -8,8 +8,10 @@ import {MessagesCache} from "./messagesCache";
 export interface ChatDataSlice {
     setAuthorData: (author: User) => void;
     setChannelData: (channel: Channel) => void;
+    loadCurrentChatMessages: () => void;
     channel: Channel | null;
     authorData: User | null;
+    messages: Message[];
 }
 
 export const createChatDataSlice: SliceCreator<
@@ -29,8 +31,14 @@ export const createChatDataSlice: SliceCreator<
     };
 
     return {
+        messages: [],
         channel: null,
         authorData: null,
+        loadCurrentChatMessages: () => {
+            const channel = get().channel;
+            if (!channel) return;
+            // TODO: implement remote loading
+        },
         setAuthorData: (author) => set({authorData: author}),
         setChannelData: (channel) => {
             saveCurrentMessagesToCache();

@@ -10,5 +10,6 @@ export interface Message {
     channel: Channel;
     createdAt: Date;
     replyTo?: Message | undefined;
+    forwardedFrom?: User | undefined;
     attachments?: Attachment[] | undefined;
 }
